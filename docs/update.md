@@ -56,14 +56,14 @@ of the way; there is no server-side processing, the file is served as-is.
 
 ## Slugs, anchors and shortlinks
 
-- On-page anchor: `https://raeerie.github.io/list/#resume`
+- On-page anchor: `https://raeirie.github.io/list/#resume`
 - Shortlink (redirects to the target): `https://raeirie.github.io/list/?go=resume`
 
 The shortlink resolves against `links.json` at request time, so it always follows
 the current `target` even after the item is edited.
 
-Pretty paths such as `https://raeerie.github.io/list/go/resume` are **not** built
-yet — tracked in [issue #1](https://github.com/raeerie/list/issues/1).
+Pretty paths such as `https://raeirie.github.io/list/go/resume` are **not** built
+yet — tracked in [issue #1](https://github.com/raeirie/list/issues/1).
 
 ## Placeholders and samples
 
