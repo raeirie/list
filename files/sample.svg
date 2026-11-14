@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="Sample image">
+  <rect width="640" height="400" fill="#1b2430"/>
+  <circle cx="320" cy="185" r="110" fill="none" stroke="#8ab4ff" stroke-width="6"/>
+  <text x="320" y="355" text-anchor="middle" fill="#9aa3af"
+        font-family="ui-sans-serif, system-ui, sans-serif" font-size="18">Sample image</text>
+</svg>

@@ -1,0 +1,43 @@
+{
+  "site": {
+    "title": "list",
+    "tagline": ""
+  },
+  "items": [
+    {
+      "title": "Sample: external link",
+      "slug": "sample-link",
+      "kind": "link",
+      "target": "https://github.com/raeerie",
+      "note": "Placeholder — replace with your own link."
+    },
+    {
+      "title": "Sample: page",
+      "slug": "sample-page",
+      "kind": "page",
+      "target": "files/sample-page.html",
+      "note": "An HTML file served from this site."
+    },
+    {
+      "title": "Sample: pdf",
+      "slug": "sample-pdf",
+      "kind": "pdf",
+      "target": "files/sample.pdf",
+      "note": "A PDF served from this site."
+    },
+    {
+      "title": "Sample: image",
+      "slug": "sample-image",
+      "kind": "image",
+      "target": "files/sample.svg",
+      "note": "An image served from this site."
+    },
+    {
+      "title": "Sample: file",
+      "slug": "sample-file",
+      "kind": "file",
+      "target": "files/sample.txt",
+      "note": "Any other file, e.g. doc or zip."
+    }
+  ]
+}

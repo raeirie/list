@@ -1,0 +1,182 @@
+/* =========================================================================
+   list — read-only file listing
+   Every visual value lives on :root so the tuning panel (?tune=1) can drive
+   it live. Bake locked values here and delete the tuner files at ship time.
+   ========================================================================= */
+
+:root {
+  /* colour */
+  --bg:            #0d0f12;
+  --surface:       #15181d;
+  --surface-hover: #1c2027;
+  --text:          #eceef1;
+  --muted:         #9aa3af;
+  --accent:        #8ab4ff;
+  --hairline:      #262b33;
+
+  /* shape */
+  --radius: 14px;
+
+  /* space */
+  --container-max: 1080px;
+  --gap:           14px;
+  --section-gap:   40px;
+  --card-padding:  18px;
+
+  /* grid */
+  --grid-cols: 3;
+  --card-min:  240px;
+
+  /* type */
+  --base-size:     16px;
+  --heading-scale: 1.18;
+  --line-height:   1.55;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: var(--base-size);
+  line-height: var(--line-height);
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: clamp(16px, 4vw, 32px);
+}
+
+/* --- header ------------------------------------------------------------- */
+
+.site-header {
+  padding-block: calc(var(--section-gap) * 1.2) var(--section-gap);
+}
+
+.wordmark {
+  margin: 0;
+  font-size: calc(var(--base-size) * var(--heading-scale) * 1.4);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.tagline {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: calc(var(--base-size) * 0.95);
+}
+
+/* --- groups ------------------------------------------------------------- */
+
+.group { margin-bottom: var(--section-gap); }
+
+.group__title {
+  margin: 0 0 calc(var(--gap) * 0.8);
+  font-size: calc(var(--base-size) * var(--heading-scale));
+  letter-spacing: -0.01em;
+}
+
+.cards {
+  display: grid;
+  gap: var(--gap);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--card-min)), 1fr));
+}
+
+@media (min-width: 1024px) {
+  .cards { grid-template-columns: repeat(var(--grid-cols), minmax(0, 1fr)); }
+}
+
+/* --- card --------------------------------------------------------------- */
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: var(--card-padding);
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  color: inherit;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: background-color .16s ease, border-color .16s ease;
+}
+
+.card:hover {
+  background: var(--surface-hover);
+  border-color: var(--accent);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.card.is-active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.card__kind {
+  font-size: calc(var(--base-size) * 0.72);
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.card__title {
+  margin: 0;
+  font-size: calc(var(--base-size) * var(--heading-scale) * 0.92);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.card__note {
+  margin: 0;
+  color: var(--muted);
+  font-size: calc(var(--base-size) * 0.875);
+}
+
+/* --- status / empty state ---------------------------------------------- */
+
+.status {
+  margin: 0 0 var(--section-gap);
+  padding: calc(var(--card-padding) * 1.15);
+  border: 1px dashed var(--hairline);
+  border-radius: var(--radius);
+  color: var(--muted);
+}
+
+.status.is-error {
+  border-style: solid;
+  border-color: #ff7a7a;
+  color: #ffb4b4;
+}
+
+/* --- footer ------------------------------------------------------------- */
+
+.site-footer {
+  padding-block: calc(var(--section-gap) * 0.8) calc(var(--section-gap) * 1.2);
+  color: var(--muted);
+  font-size: calc(var(--base-size) * 0.82);
+}
+
+.site-footer p { margin: 0; }
+
+/* --- motion ------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+  }
+}
