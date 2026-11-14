@@ -58,7 +58,7 @@ body {
 /* --- header ------------------------------------------------------------- */
 
 .site-header {
-  padding-block: calc(var(--section-gap) * 1.2) var(--section-gap);
+  padding-block: calc(var(--section-gap) * 1.2) calc(var(--section-gap) * 2);
 }
 
 .wordmark {
