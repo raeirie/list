@@ -1,7 +1,7 @@
 /* =========================================================================
    list — read-only file listing
-   Every visual value lives on :root so the tuning panel (?tune=1) can drive
-   it live. Bake locked values here and delete the tuner files at ship time.
+   Every visual value lives on :root; edit the block below to restyle the site.
+   Those values are the locked set, so there is no separate theme file.
    ========================================================================= */
 
 :root {
@@ -15,22 +15,22 @@
   --hairline:      #262b33;
 
   /* shape */
-  --radius: 14px;
+  --radius: 8px;
 
   /* space */
   --container-max: 1080px;
-  --gap:           14px;
-  --section-gap:   40px;
-  --card-padding:  18px;
+  --gap:           8px;
+  --section-gap:   16px;
+  --card-padding:  8px;
 
   /* grid */
   --grid-cols: 3;
   --card-min:  240px;
 
   /* type */
-  --base-size:     16px;
-  --heading-scale: 1.18;
-  --line-height:   1.55;
+  --base-size:     14px;
+  --heading-scale: 1;
+  --line-height:   1.4;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -123,14 +123,6 @@ body {
 .card.is-active {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
-}
-
-.card__kind {
-  font-size: calc(var(--base-size) * 0.72);
-  font-weight: 600;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--accent);
 }
 
 .card__title {

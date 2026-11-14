@@ -53,15 +53,10 @@
       card.rel = 'noopener noreferrer';
     }
 
-    var kind = document.createElement('span');
-    kind.className = 'card__kind';
-    kind.textContent = KIND_LABELS[normaliseKind(item.kind)];
-
     var title = document.createElement('h3');
     title.className = 'card__title';
     title.textContent = item.title;
 
-    card.appendChild(kind);
     card.appendChild(title);
 
     if (item.note) {
@@ -137,24 +132,9 @@
     target.scrollIntoView(reducedMotion ? {} : { behavior: 'smooth', block: 'start' });
   }
 
-  /* --- tuner (dev only) ------------------------------------------------- */
-
-  function loadTuner() {
-    var link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'tuner.css';
-    document.head.appendChild(link);
-
-    var script = document.createElement('script');
-    script.src = 'tuner.js';
-    document.body.appendChild(script);
-  }
-
   /* --- boot ------------------------------------------------------------- */
 
   function boot() {
-    if (params.get('tune') === '1') loadTuner();
-
     var slug = params.get('go');
     if (slug) {
       setStatus('Redirecting…', false);

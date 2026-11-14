@@ -71,17 +71,15 @@ yet — tracked in [issue #1](https://github.com/raeerie/list/issues/1).
 `files/`, so the page has honest content while tuning. They are placeholders, not
 real listings — replace them with real items rather than editing them in place.
 
-## Tuning the look (dev only)
+## Changing the look
 
-Open the site with `?tune=1` and a floating panel appears over the real page.
-Sliders drive CSS custom properties on `:root`; everything moves live.
+Every visual value lives in the `:root` block at the top of `styles.css`. Edit
+those values directly and push; there is no separate theme file.
 
-- **Copy config** puts the locked values on the clipboard as JSON (and logs them).
-- Paste that JSON back and have it baked into the `:root` block of `styles.css`.
-- Then delete `tuner.js`, `tuner.css`, and the `loadTuner()` call in `app.js`.
-
-Never ship with the tuner present — it only loads when `?tune=1` is in the URL, so
-it is invisible to visitors, but it should still come out before release.
+The dev-only tuning panel (loaded via `?tune=1`) was removed once the current
+values were locked. To tune again, restore `tuner.js`, `tuner.css` and the
+`loadTuner()` call in `app.js` from git history, then remove them again once the
+new values are baked in.
 
 ## Visual values
 
