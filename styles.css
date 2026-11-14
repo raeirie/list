@@ -219,16 +219,6 @@ body {
   color: #ffb4b4;
 }
 
-/* --- footer ------------------------------------------------------------- */
-
-.site-footer {
-  padding-block: calc(var(--section-gap) * 0.8) calc(var(--section-gap) * 1.2);
-  color: var(--muted);
-  font-size: calc(var(--base-size) * 0.82);
-}
-
-.site-footer p { margin: 0; }
-
 /* --- motion ------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
