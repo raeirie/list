@@ -125,6 +125,28 @@ body {
   text-decoration: none;
 }
 
+@media (min-width: 640px) {
+  /* One row: title, separator, note. The note wraps inside its own box rather
+     than sliding back under the title, so the two never read as a run-on. */
+  .card__link {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .card__title { flex: none; }
+
+  .card__note {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .card__note::before {
+    content: "\00b7";
+    margin-right: 8px;
+  }
+}
+
 .card__link:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
