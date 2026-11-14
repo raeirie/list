@@ -261,6 +261,7 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
 
   /* ---------- dimensions (metres, plan coordinates: x along length, y from back wall to front) ---------- */
   var L = 17.35, D = 6.0, CX = L / 2, CZ = D / 2;
+  var LOW_H = 2.00; /* height of the two low partitions above the floor, estimated from the 3D sheets */
   var FLOOR = 0.20, H_BACK = 3.15, H_FRONT = 2.90, EAVE = 3.32, RIDGE = 4.72, OV = 0.65, LEAN_END = 2.88;
   var X_COLS = [0, 2.45, 4.40, 6.35, 8.35, 10.35, 12.35, 14.35, 17.35];
   var FRONT_COLS = [0, 6.35, 10.35, 14.35, 17.35];
@@ -508,8 +509,8 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
     P('Full 17.35 m length, between the columns of the back line. Thin double line on the plan, modelled 10 cm.', 'Panjang penuh 17.35 m, di antara kolom as belakang. Garis ganda tipis pada denah, dimodelkan 10 cm.'));
   [8.35, 10.35].forEach(function (x) {
     var xs = x.toFixed(2);
-    add(B(x - 0.05, x + 0.05, 0, 1.7, FLOOR, H_BACK, M.wall), 'walls', P('Short partition', 'Sekat pendek'),
-      P('1.70 m deep, off the back wall at x = ' + xs + ' m.', 'Sedalam 1.70 m dari dinding belakang, pada x = ' + xs + ' m.'));
+    add(B(x - 0.05, x + 0.05, 0, 1.7, FLOOR, FLOOR + LOW_H, M.wall), 'walls', P('Low partition', 'Sekat rendah'),
+      P('1.70 m deep, about 2.00 m high, off the back wall at x = ' + xs + ' m. Shown lower than the other partitions in the 3D views. The height is not dimensioned, so it is estimated.', 'Sedalam 1.70 m, tinggi sekitar 2.00 m, dari dinding belakang pada x = ' + xs + ' m. Pada gambar 3D tampak lebih rendah dari sekat lain. Tinggi tidak berdimensi, jadi hanya perkiraan.'));
   });
   var roomE = 'Room 2.00 × 1.70 m off the back wall, between x = 12.35 and 14.35 m.';
   var roomI = 'Ruang 2.00 × 1.70 m dari dinding belakang, antara x = 12.35 dan 14.35 m.';
@@ -1053,7 +1054,7 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
     ['Wall material and thickness. Modelled as 15 cm solid walls up to the ringbalk.', 'Bahan dan tebal dinding. Dimodelkan sebagai dinding pasangan 15 cm sampai ringbalk.'],
     ['Footings and sloof are drawn for the front 3.00 m only.', 'Pondasi dan sloof hanya digambar untuk 3.00 m bagian depan.'],
     ['The ringbalk plan shows the front line only. Ringbalks on the back and middle lines are assumed.', 'Rencana ringbalk hanya menunjukkan as depan. Ringbalk as belakang dan tengah diasumsikan.'],
-    ['The use of the small room is not stated. Roof batten spacing is not dimensioned.', 'Fungsi ruang kecil tidak disebutkan. Jarak reng atap tidak berdimensi.'],
+    ['The two low partitions (x = 8.35 and 10.35 m) are about 2.00 m high, estimated from the 3D sheets. The use of the small room is not stated. Roof batten spacing is not dimensioned.', 'Dua sekat rendah (x = 8.35 dan 10.35 m) setinggi sekitar 2.00 m, perkiraan dari gambar 3D. Fungsi ruang kecil tidak disebutkan. Jarak reng atap tidak berdimensi.'],
     ['Wiring routes are not modelled, only lamps, switches and outlets.', 'Jalur kabel tidak dimodelkan, hanya lampu, saklar dan stop kontak.'],
     ['North appears only on the satellite layout sheet (north up, long side roughly north to south). The model is not rotated to a compass heading.', 'Arah utara hanya tampak pada lembar layout satelit (utara di atas, sisi panjang kira-kira utara ke selatan). Model tidak diputar mengikuti arah mata angin.']
   ];
