@@ -67,9 +67,9 @@ yet — tracked in [issue #1](https://github.com/raeirie/list/issues/1).
 
 ## Placeholders and samples
 
-`links.json` ships with clearly-labelled `Sample:` entries pointing at files in
-`files/`, so the page has honest content while tuning. They are placeholders, not
-real listings — replace them with real items rather than editing them in place.
+The sample entries are gone: `links.json` now holds only real items. The four
+sample files in `files/` (`sample-page.html`, `sample.pdf`, `sample.svg`,
+`sample.txt`) are left over from the tuning pass and nothing references them.
 
 ## Changing the look
 
