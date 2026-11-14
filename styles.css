@@ -95,14 +95,12 @@ body {
 .card {
   position: relative;
   display: flex;
-  flex-direction: column;
-  gap: 6px;
+  align-items: center;
+  gap: var(--gap);
   padding: var(--card-padding);
   background: var(--surface);
   border: 1px solid var(--hairline);
   border-radius: var(--radius);
-  color: inherit;
-  text-decoration: none;
   overflow-wrap: anywhere;
   transition: background-color .16s ease, border-color .16s ease;
 }
@@ -112,15 +110,66 @@ body {
   border-color: var(--accent);
 }
 
-.card:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
 .card.is-active {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
 }
+
+.card__link {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.card__link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.card__share {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color .16s ease, border-color .16s ease;
+}
+
+.card__share:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+.card__share:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.card__share svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.card__share .icon-check { display: none; }
+
+.card__share[data-copied="true"] {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.card__share[data-copied="true"] .icon-link { display: none; }
+.card__share[data-copied="true"] .icon-check { display: block; }
 
 .card__title {
   margin: 0;
