@@ -99,19 +99,16 @@ body {
   gap: var(--gap);
   padding: var(--card-padding);
   background: var(--surface);
-  border: 1px solid var(--hairline);
   border-radius: var(--radius);
   overflow-wrap: anywhere;
-  transition: background-color .16s ease, border-color .16s ease;
+  transition: background-color .16s ease;
 }
 
 .card:hover {
   background: var(--surface-hover);
-  border-color: var(--accent);
 }
 
 .card.is-active {
-  border-color: var(--accent);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
