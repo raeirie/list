@@ -27,9 +27,11 @@
   --card-max:  640px;
 
   /* type */
-  --base-size:     14px;
-  --heading-scale: 1;
-  --line-height:   1.4;
+  --base-size:      14px;
+  --heading-scale:  1;
+  /* one level above the previous 1.4: 1.4 x 1.4 = 1.96 */
+  --wordmark-scale: 1.96;
+  --line-height:    1.4;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -61,7 +63,7 @@ body {
 
 .wordmark {
   margin: 0;
-  font-size: calc(var(--base-size) * var(--heading-scale) * 1.4);
+  font-size: calc(var(--base-size) * var(--heading-scale) * var(--wordmark-scale));
   letter-spacing: -0.02em;
   line-height: 1.1;
 }
