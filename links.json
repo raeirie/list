@@ -12,6 +12,13 @@
       "note": "Placeholder — replace with your own link."
     },
     {
+      "title": "TPS 3R Hulu Pasar — 3D model",
+      "slug": "tps-3r-hulu-pasar",
+      "kind": "page",
+      "target": "files/tps-3r-hulu-pasar.html",
+      "note": "Interactive 3D model: sections, layers, day/dusk/night light."
+    },
+    {
       "title": "Sample: page",
       "slug": "sample-page",
       "kind": "page",

@@ -1,0 +1,1139 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>TPS 3R Hulu Pasar</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: drawing-sheet viewer. A title strip on top, the 3D stage as the sheet, a tabbed dock (right on desktop, below on phones). */
+:root{
+  --bg:#eef1f6;
+  --surface:#ffffff;
+  --surface-2:#f2f5fa;
+  --stage:#dbe4f0;
+  --ink:#111a2e;
+  --ink-2:#4a5775;
+  --line:#c8d1e1;
+  --accent:#1f56e0;
+  --accent-ink:#ffffff;
+  --sel:#e8750a;
+  --display:"Barlow Condensed","Arial Narrow",sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b111f;
+    --surface:#131b2e;
+    --surface-2:#19233c;
+    --stage:#0e1627;
+    --ink:#e7ecf7;
+    --ink-2:#9aa8c7;
+    --line:#27324d;
+    --accent:#6f95ff;
+    --accent-ink:#0b1226;
+    --sel:#ffa53d;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b111f;
+  --surface:#131b2e;
+  --surface-2:#19233c;
+  --stage:#0e1627;
+  --ink:#e7ecf7;
+  --ink-2:#9aa8c7;
+  --line:#27324d;
+  --accent:#6f95ff;
+  --accent-ink:#0b1226;
+  --sel:#ffa53d;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font:14px/1.45 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:10px;
+}
+.app{height:100%;min-width:0;display:grid;gap:10px;grid-template-rows:auto minmax(0,1fr) auto}
+.hdr{display:flex;flex-direction:column;gap:2px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.hdr .top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.hdr h1{margin:0;font:700 24px/1 var(--display);letter-spacing:.05em;text-transform:uppercase}
+.hdr p{margin:0;font:400 11px/1.4 var(--mono);color:var(--ink-2)}
+.lang{display:flex;border:1px solid var(--line);flex:none}
+.lang button{appearance:none;border:0;background:none;color:var(--ink-2);min-width:44px;min-height:32px;font:500 12px/1 var(--mono);letter-spacing:.06em;cursor:pointer}
+.lang button+button{border-left:1px solid var(--line)}
+.lang button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.stage{position:relative;min-height:0;min-width:0;border:1px solid var(--line);background:var(--stage);overflow:hidden;touch-action:none}
+.stage canvas{display:block;width:100%;height:100%;touch-action:none;outline:none}
+.fail{position:absolute;inset:0;display:grid;place-items:center;margin:0;padding:24px;text-align:center;color:var(--ink-2)}
+.hint{position:absolute;left:8px;bottom:8px;margin:0;padding:3px 7px;font:400 10.5px/1.3 var(--mono);color:var(--ink-2);background:color-mix(in srgb,var(--surface) 85%,transparent);border:1px solid var(--line);pointer-events:none;transition:opacity .4s}
+.hint.gone{opacity:0}
+.card{position:absolute;top:8px;left:8px;right:8px;max-width:380px;padding:10px 12px;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--sel);box-shadow:0 6px 22px rgba(10,20,50,.18)}
+.card[hidden]{display:none}
+.card h2{margin:0 28px 2px 0;font:600 18px/1.15 var(--display);letter-spacing:.04em;text-transform:uppercase}
+.card p{margin:0;font-size:13px;color:var(--ink-2)}
+.card .tag{display:inline-block;margin-top:6px;font:500 10.5px/1 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);border:1px solid var(--line);padding:3px 5px}
+.card .x{position:absolute;top:4px;right:4px;width:32px;height:32px;display:grid;place-items:center;border:0;background:none;color:var(--ink-2);font:400 20px/1 var(--body);cursor:pointer}
+.dock{display:flex;flex-direction:column;min-height:0;min-width:0;max-height:40vh;max-height:40dvh;background:var(--surface);border:1px solid var(--line)}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--line);flex:none}
+.tab{appearance:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;background:none;color:var(--ink-2);min-height:44px;padding:0 2px;font:600 13px/1 var(--display);letter-spacing:.07em;text-transform:uppercase;cursor:pointer}
+.tab[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent)}
+.panel{padding:12px;overflow:auto;min-height:0;min-width:0}
+.panel[hidden]{display:none}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn{appearance:none;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:1px;min-height:44px;padding:6px 10px;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);font:600 14px/1.1 var(--body);text-align:left;cursor:pointer}
+.btn i{font:400 10.5px/1.2 var(--mono);font-style:normal;color:var(--ink-2)}
+.btn[aria-pressed="true"],.btn.on{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);color:var(--accent)}
+.btn:disabled{opacity:.5;cursor:default}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:6px}
+.sub{margin:14px 0 6px;font:600 12px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+.sub:first-child{margin-top:0}
+.row{display:flex;align-items:center;gap:10px;min-height:40px;padding:2px 0;cursor:pointer;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.row input{width:20px;height:20px;margin:0;accent-color:var(--accent);flex:none}
+.row .sw{width:14px;height:14px;flex:none;border:1px solid var(--line)}
+.row .nm{display:flex;flex-direction:column;min-width:0;font-weight:500}
+.row .nm small{font:400 10.5px/1.3 var(--mono);color:var(--ink-2)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+.rng{width:100%;margin:10px 0 4px;accent-color:var(--accent);height:28px}
+.out{margin:0;font:400 12px/1.4 var(--mono);color:var(--ink-2)}
+.dl{display:grid;grid-template-columns:minmax(0,9.5em) minmax(0,1fr);gap:6px 12px;margin:0}
+.dl dt{font:500 11px/1.5 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.03em}
+.dl dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.notes{margin:0;padding-left:18px;color:var(--ink-2);font-size:13px}
+.notes li{margin:3px 0}
+.panel a{color:var(--accent)}
+@media (min-width:900px){
+  .app{grid-template-columns:minmax(0,1fr) 360px;grid-template-rows:auto minmax(0,1fr)}
+  .hdr{grid-column:1/-1;flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:4px 16px}
+  .hdr .top{gap:20px}
+  .dock{max-height:none}
+}
+@media (prefers-reduced-motion:reduce){.hint{transition:none}}
+</style>
+
+<div class="app">
+  <header class="hdr">
+    <div class="top">
+      <h1>TPS 3R Hulu Pasar</h1>
+      <div class="lang" role="group" data-ial="lang.aria">
+        <button type="button" id="lg-id" aria-pressed="true">ID</button>
+        <button type="button" id="lg-en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="stage" id="stage">
+    <p class="hint" id="hint" data-i="hint"></p>
+    <section class="card" id="card" hidden aria-live="polite">
+      <button class="x" id="card-x" type="button" data-ial="card.close">×</button>
+      <h2 id="card-title"></h2>
+      <p id="card-spec"></p>
+      <span class="tag" id="card-tag"></span>
+    </section>
+  </main>
+
+  <aside class="dock">
+    <div class="tabs" role="tablist" data-ial="tabs.aria">
+      <button class="tab" role="tab" id="tab-view" aria-controls="p-view" aria-selected="true" type="button" data-i="tab.view"></button>
+      <button class="tab" role="tab" id="tab-layers" aria-controls="p-layers" aria-selected="false" type="button" data-i="tab.layers"></button>
+      <button class="tab" role="tab" id="tab-section" aria-controls="p-section" aria-selected="false" type="button" data-i="tab.section"></button>
+      <button class="tab" role="tab" id="tab-light" aria-controls="p-light" aria-selected="false" type="button" data-i="tab.light"></button>
+      <button class="tab" role="tab" id="tab-specs" aria-controls="p-specs" aria-selected="false" type="button" data-i="tab.specs"></button>
+    </div>
+
+    <div class="panel" id="p-view" role="tabpanel" aria-labelledby="tab-view">
+      <h3 class="sub" data-i="view.camera"></h3>
+      <div class="grid" id="views"></div>
+      <h3 class="sub" data-i="view.model"></h3>
+      <label class="row"><input type="checkbox" id="opt-doors"><span class="nm"><span data-i="o.doors"></span><small data-i="o.doors.s"></small></span></label>
+      <label class="row"><input type="checkbox" id="opt-xray"><span class="nm"><span data-i="o.xray"></span><small data-i="o.xray.s"></small></span></label>
+      <label class="row"><input type="checkbox" id="opt-spin"><span class="nm"><span data-i="o.spin"></span><small data-i="o.spin.s"></small></span></label>
+      <label class="row"><input type="checkbox" id="opt-perf"><span class="nm"><span data-i="o.perf"></span><small data-i="o.perf.s"></small></span></label>
+    </div>
+
+    <div class="panel" id="p-layers" role="tabpanel" aria-labelledby="tab-layers" hidden>
+      <div class="pair" style="margin-top:0;margin-bottom:6px">
+        <button class="btn" id="ly-all" type="button"><span data-i="ly.all"></span><i data-i="ly.all.s"></i></button>
+        <button class="btn" id="ly-skel" type="button"><span data-i="ly.skel"></span><i data-i="ly.skel.s"></i></button>
+      </div>
+      <div id="layers"></div>
+    </div>
+
+    <div class="panel" id="p-section" role="tabpanel" aria-labelledby="tab-section" hidden>
+      <h3 class="sub" data-i="sec.title"></h3>
+      <div class="grid" id="sec-modes">
+        <button class="btn" type="button" data-mode="off" aria-pressed="true"><span data-i="sec.off"></span></button>
+        <button class="btn" type="button" data-mode="x" aria-pressed="false"><span data-i="sec.cross"></span><i>B-B</i></button>
+        <button class="btn" type="button" data-mode="y" aria-pressed="false"><span data-i="sec.long"></span><i>A-A</i></button>
+      </div>
+      <input class="rng" id="sec-pos" type="range" min="0" max="1000" value="500" disabled data-ial="sec.pos">
+      <p class="out" id="sec-out"></p>
+      <div class="pair"><button class="btn" id="sec-flip" type="button" disabled><span data-i="sec.flip"></span><i data-i="sec.flip.s"></i></button></div>
+    </div>
+
+    <div class="panel" id="p-light" role="tabpanel" aria-labelledby="tab-light" hidden>
+      <h3 class="sub" data-i="lt.time"></h3>
+      <div class="grid" id="time-modes">
+        <button class="btn" type="button" data-time="day" aria-pressed="true"><span data-i="lt.day"></span><i data-i="lt.day.s"></i></button>
+        <button class="btn" type="button" data-time="dusk" aria-pressed="false"><span data-i="lt.dusk"></span><i data-i="lt.dusk.s"></i></button>
+        <button class="btn" type="button" data-time="night" aria-pressed="false"><span data-i="lt.night"></span><i data-i="lt.night.s"></i></button>
+      </div>
+      <h3 class="sub" data-i="lt.light"></h3>
+      <label class="row"><input type="checkbox" id="opt-shadow" checked><span class="nm"><span data-i="lt.shadow"></span><small data-i="lt.shadow.s"></small></span></label>
+      <label class="row"><input type="checkbox" id="opt-lamps"><span class="nm"><span data-i="lt.lamps"></span><small data-i="lt.lamps.s"></small></span></label>
+      <h3 class="sub" data-i="lt.dir"></h3>
+      <input class="rng" id="sun-az" type="range" min="0" max="359" value="0" data-ial="lt.dir">
+      <p class="out" id="sun-out"></p>
+    </div>
+
+    <div class="panel" id="p-specs" role="tabpanel" aria-labelledby="tab-specs" hidden>
+      <div id="specs-body"></div>
+    </div>
+  </aside>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  /* ---------- language ---------- */
+  var lang = 'id';
+  try { var saved = localStorage.getItem('tps3r-lang'); if (saved === 'en' || saved === 'id') { lang = saved; } } catch (err) { /* storage unavailable */ }
+  function li() { return lang === 'id' ? 1 : 0; }
+  var U = {
+    'o.perf': ['Light mode', 'Mode ringan'], 'o.perf.s': ['Lower resolution, no shadows or lamp light. Use it if the page feels slow.', 'Resolusi lebih rendah, tanpa bayangan dan cahaya lampu. Pakai jika halaman terasa berat.'],
+    'lang.aria': ['Language', 'Bahasa'],
+    'hint': ['Drag to orbit · pinch to zoom · tap a part', 'Geser untuk memutar · cubit untuk zoom · ketuk bagian bangunan'],
+    'card.close': ['Close details', 'Tutup rincian'],
+    'tabs.aria': ['Viewer controls', 'Kontrol tampilan'],
+    'tab.view': ['View', 'Kamera'], 'tab.layers': ['Layers', 'Lapisan'], 'tab.section': ['Section', 'Potongan'], 'tab.light': ['Light', 'Cahaya'], 'tab.specs': ['Specs', 'Rincian'],
+    'view.camera': ['Camera', 'Kamera'], 'view.model': ['Model', 'Model'],
+    'o.doors': ['Open doors and gate', 'Buka pintu dan gerbang'], 'o.doors.s': ['P1 swings in, FG folds to both sides', 'P1 mengayun ke dalam, FG terlipat ke kedua sisi'],
+    'o.xray': ['See-through walls', 'Dinding tembus pandang'], 'o.xray.s': ['Reveals the partitions and the small room', 'Memperlihatkan sekat dan ruang kecil'],
+    'o.spin': ['Slow turntable', 'Putar perlahan'], 'o.spin.s': ['Pauses while you drag', 'Berhenti saat digeser'],
+    'ly.all': ['All layers', 'Semua lapisan'], 'ly.all.s': ['reset', 'atur ulang'],
+    'ly.skel': ['Structure only', 'Struktur saja'], 'ly.skel.s': ['no roof, walls, doors', 'tanpa atap, dinding, pintu'],
+    'sec.title': ['Cut plane', 'Bidang potong'], 'sec.off': ['Off', 'Mati'], 'sec.cross': ['Cross', 'Melintang'], 'sec.long': ['Long', 'Memanjang'],
+    'sec.pos': ['Cut position', 'Posisi potongan'], 'sec.flip': ['Flip side', 'Balik sisi'], 'sec.flip.s': ['keep the other half', 'tampilkan sisi lainnya'],
+    'sec.out.off': ['Pick a cut direction, then slide to move it through the building.', 'Pilih arah potongan, lalu geser untuk menggerakkannya menembus bangunan.'],
+    'sec.out.x': ['Cross-section at {v} m along the 17.35 m length.', 'Potongan melintang pada {v} m dari panjang 17.35 m.'],
+    'sec.out.y': ['Long section at {v} m from the back wall.', 'Potongan memanjang pada {v} m dari dinding belakang.'],
+    'lt.time': ['Time of day', 'Waktu'], 'lt.day': ['Day', 'Siang'], 'lt.day.s': ['sun overhead', 'matahari tinggi'],
+    'lt.dusk': ['Dusk', 'Senja'], 'lt.dusk.s': ['low warm sun', 'matahari rendah'], 'lt.night': ['Night', 'Malam'], 'lt.night.s': ['moonlight', 'cahaya bulan'],
+    'lt.light': ['Lighting', 'Pencahayaan'],
+    'lt.shadow': ['Shadows', 'Bayangan'], 'lt.shadow.s': ['Cast by the sun or moon', 'Dari matahari atau bulan'],
+    'lt.lamps': ['Lamps on', 'Lampu menyala'], 'lt.lamps.s': ['9 LED lamps. Needs the Electrical layer.', '9 lampu LED. Perlu lapisan Elektrikal.'],
+    'lt.dir': ['Sun and moon direction', 'Arah matahari dan bulan'], 'lt.dir.out': ['Light comes from {v}° around the building.', 'Cahaya datang dari {v}° mengelilingi bangunan.'],
+    'sp.key': ['Key figures', 'Data utama'], 'sp.nofix': ['Not fixed by the drawings', 'Tidak ditetapkan gambar'], 'sp.sheets': ['Sheets used', 'Lembar gambar yang dipakai'],
+    'fail.lib': ['The 3D library did not load. Reload the page to try again.', 'Pustaka 3D gagal dimuat. Muat ulang halaman untuk mencoba lagi.'],
+    'fail.gl': ['This browser could not start WebGL, so the 3D view is unavailable.', 'Browser ini tidak dapat menjalankan WebGL, sehingga tampilan 3D tidak tersedia.'],
+    'canvas.aria': ['3D model of the TPS 3R building', 'Model 3D bangunan TPS 3R'],
+    'dim.floor': ['floor +0.20', 'lantai +0.20'], 'dim.beam': ['beam +3.15', 'balok +3.15'], 'dim.ridge': ['ridge +4.72', 'bubungan +4.72']
+  };
+  function tr(k) { var e = U[k]; return e ? e[li()] : k; }
+  function applyStatic() {
+    Array.prototype.forEach.call(document.querySelectorAll('[data-i]'), function (el) { el.textContent = tr(el.getAttribute('data-i')); });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-ial]'), function (el) { el.setAttribute('aria-label', tr(el.getAttribute('data-ial'))); });
+    document.documentElement.setAttribute('lang', lang);
+  }
+  applyStatic();
+
+  var T = window.THREE;
+  var stage = document.getElementById('stage');
+  function fail(key) { var p = document.createElement('p'); p.className = 'fail'; p.textContent = tr(key); stage.appendChild(p); }
+  if (!T) { fail('fail.lib'); return; }
+  var renderer;
+  try { renderer = new T.WebGLRenderer({ antialias: (window.devicePixelRatio || 1) < 2 }); }
+  catch (err) { fail('fail.gl'); return; }
+
+  /* ---------- part text registry (English key, Indonesian value) ---------- */
+  var PT = {};
+  function P(en, id) { PT[en] = id; return en; }
+  function pt(s) { return (lang === 'id' && PT[s]) ? PT[s] : s; }
+
+  /* ---------- dimensions (metres, plan coordinates: x along length, y from back wall to front) ---------- */
+  var L = 17.35, D = 6.0, CX = L / 2, CZ = D / 2;
+  var FLOOR = 0.20, H_BACK = 3.15, H_FRONT = 2.90, EAVE = 3.32, RIDGE = 4.72, OV = 0.65, LEAN_END = 2.88;
+  var X_COLS = [0, 2.45, 4.40, 6.35, 8.35, 10.35, 12.35, 14.35, 17.35];
+  var FRONT_COLS = [0, 6.35, 10.35, 14.35, 17.35];
+  var SLOPE = (RIDGE - EAVE) / 1.5;
+  var NORTH_END = EAVE - OV * SLOPE;
+
+  /* ---------- renderer, scene, lights ---------- */
+  var perf = { light: false };
+  try { perf.light = localStorage.getItem('tps3r-perf') === '1'; } catch (err) { /* storage unavailable */ }
+  function applyPixel() { renderer.setPixelRatio(perf.light ? 1 : Math.min(window.devicePixelRatio || 1, 1.5)); }
+  applyPixel();
+  renderer.shadowMap.enabled = !perf.light;
+  renderer.shadowMap.type = T.PCFShadowMap;
+  renderer.shadowMap.autoUpdate = false; /* shadows are redrawn only when something in the scene changes, not on every camera move */
+  var shadowDirty = true;
+  renderer.localClippingEnabled = true;
+  var dom = renderer.domElement;
+  stage.insertBefore(dom, stage.firstChild);
+
+  var scene = new T.Scene();
+  var root = new T.Group();
+  scene.add(root);
+  var cam = new T.PerspectiveCamera(36, 1, 0.1, 400);
+  var hemi = new T.HemisphereLight(0xffffff, 0x8a9a7a, 0.8);
+  scene.add(hemi);
+  var sun = new T.DirectionalLight(0xffffff, 0.6);
+  sun.position.set(11, 20, 15);
+  sun.castShadow = true;
+  sun.shadow.mapSize.set(2048, 2048);
+  sun.shadow.camera.left = -17; sun.shadow.camera.right = 17;
+  sun.shadow.camera.top = 14; sun.shadow.camera.bottom = -14;
+  sun.shadow.camera.near = 1; sun.shadow.camera.far = 70;
+  sun.shadow.bias = -0.0006; sun.shadow.normalBias = 0.03;
+  scene.add(sun);
+
+  /* ---------- materials, textures ---------- */
+  var clipPlanes = [];
+  var clipMats = [];
+  function mat(color, opts, basic) {
+    var o = { color: color, side: T.DoubleSide };
+    if (!basic) { o.roughness = 0.85; o.metalness = 0; o.clipShadows = true; }
+    var k; if (opts) { for (k in opts) { o[k] = opts[k]; } }
+    var m = basic ? new T.MeshBasicMaterial(o) : new T.MeshStandardMaterial(o);
+    m.clippingPlanes = clipPlanes;
+    clipMats.push(m);
+    return m;
+  }
+  function canvasTex(w, h, draw) {
+    var c = document.createElement('canvas'); c.width = w; c.height = h;
+    draw(c.getContext('2d'), w, h);
+    var t = new T.CanvasTexture(c);
+    t.wrapS = t.wrapT = T.RepeatWrapping;
+    t.anisotropy = 4;
+    return t;
+  }
+  var tileTex = canvasTex(64, 64, function (g, w, h) {
+    g.fillStyle = '#dfe1de'; g.fillRect(0, 0, w, h);
+    g.fillStyle = 'rgba(255,255,255,.35)'; g.fillRect(3, 3, w - 6, h / 2);
+    g.strokeStyle = '#a9aeaa'; g.lineWidth = 3; g.strokeRect(0, 0, w, h);
+  });
+  tileTex.repeat.set(L / 0.4, D / 0.4);
+  function corrTex(lenX) {
+    var t = canvasTex(64, 4, function (g, w, h) {
+      for (var i = 0; i < w; i++) {
+        var c = Math.round(255 * (0.78 + 0.22 * Math.cos(i / w * Math.PI * 2)));
+        g.fillStyle = 'rgb(' + c + ',' + c + ',' + c + ')'; g.fillRect(i, 0, 1, h);
+      }
+    });
+    t.repeat.set(lenX / 0.32, 1);
+    return t;
+  }
+  var slatTex = canvasTex(32, 16, function (g, w, h) {
+    g.fillStyle = '#ffffff'; g.fillRect(0, 0, w, h);
+    g.fillStyle = 'rgba(0,0,40,.42)'; g.fillRect(0, 0, 3, h);
+    g.fillStyle = 'rgba(255,255,255,.35)'; g.fillRect(w - 6, 0, 3, h);
+  });
+  slatTex.repeat.set(15.5, 1);
+  var boardTex = canvasTex(8, 64, function (g, w, h) {
+    g.fillStyle = '#ffffff'; g.fillRect(0, 0, w, h);
+    g.fillStyle = 'rgba(0,0,40,.35)';
+    for (var i = 0; i < 10; i++) { g.fillRect(0, Math.round(i * h / 10), w, 2); }
+  });
+  var pavTex = canvasTex(128, 128, function (g, w, h) {
+    g.fillStyle = '#8f97a4'; g.fillRect(0, 0, w, h);
+    for (var r = 0; r < 4; r++) {
+      for (var c = 0; c < 2; c++) {
+        var v = 170 + Math.floor(Math.random() * 28);
+        g.fillStyle = 'rgb(' + v + ',' + (v + 4) + ',' + (v + 12) + ')';
+        g.fillRect(c * 64 + (r % 2) * 32 + 1, r * 32 + 1, 62, 30);
+      }
+    }
+  });
+  pavTex.repeat.set(16, 8);
+  var glowTex = canvasTex(64, 64, function (g, w, h) {
+    var gr = g.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, w / 2);
+    gr.addColorStop(0, 'rgba(255,236,170,1)'); gr.addColorStop(0.25, 'rgba(255,214,130,.55)'); gr.addColorStop(1, 'rgba(255,200,100,0)');
+    g.fillStyle = gr; g.fillRect(0, 0, w, h);
+  });
+  glowTex.wrapS = glowTex.wrapT = T.ClampToEdgeWrapping;
+
+  var M = {
+    blue: mat(0x2563e8),
+    beam: mat(0x3b78f2),
+    wall: mat(0xcfdbe6),
+    steel: mat(0xaab4c0, { metalness: 0.4, roughness: 0.5 }),
+    fascia: mat(0xf3f6f9),
+    stone: mat(0x7d8288),
+    slab: mat(0xb9bdc2),
+    roofSide: mat(0x16379f),
+    roofTop: mat(0x2c5be0, { map: corrTex(L + 2 * OV) }),
+    capTop: mat(0x2c5be0, { map: corrTex(12.12) }),
+    gate: mat(0x1b3fd0, { map: slatTex }),
+    gateEdge: mat(0x14308f),
+    door: mat(0x1a3fd4, { map: boardTex }),
+    wood: mat(0x6b4426),
+    glass: mat(0xbfe3ff, { transparent: true, opacity: 0.35, depthWrite: false }),
+    lampBase: mat(0x99a2ad),
+    lampGlow: mat(0xaeb4bd, {}, true),
+    sw: mat(0x8fe8cf),
+    sock: mat(0xffcc3d)
+  };
+
+  /* ---------- registry: layers and pickable parts ---------- */
+  var LAYERS = [
+    { id: 'roof', n: ['Roof covering', 'Penutup atap'], c: ['Blue seng soka sheets', 'Seng soka biru'], color: '#2c5be0', on: true },
+    { id: 'frame', n: ['Roof frame', 'Rangka atap'], c: ['Zincalum C-75, reng 32.45', 'Zincalum C-75, reng 32.45'], color: '#aab4c0', on: true },
+    { id: 'walls', n: ['Walls', 'Dinding'], c: ['Assumed solid, 15 cm', 'Asumsi pasangan, 15 cm'], color: '#cfdbe6', on: true },
+    { id: 'cols', n: ['Columns and ringbalk', 'Kolom dan ringbalk'], c: ['K 15/15, ulin 9/9', 'K 15/15, ulin 9/9'], color: '#2563e8', on: true },
+    { id: 'floor', n: ['Floor', 'Lantai'], c: ['Keramik 40 × 40', 'Keramik 40 × 40'], color: '#dfe1de', on: true },
+    { id: 'found', n: ['Foundation and sloof', 'Pondasi dan sloof'], c: ['Batu belah 1:4, sloof 15/20', 'Batu belah 1:4, sloof 15/20'], color: '#7d8288', on: false },
+    { id: 'doors', n: ['Doors and gate', 'Pintu dan gerbang'], c: ['P1 and folding gate FG', 'P1 dan folding gate FG'], color: '#1b3fd0', on: true },
+    { id: 'elec', n: ['Electrical', 'Elektrikal'], c: ['9 lamps, 5 switches and outlets', '9 lampu, 5 saklar dan stop kontak'], color: '#ffcc3d', on: true },
+    { id: 'dims', n: ['Dimensions', 'Dimensi'], c: ['Metres, from the drawings', 'Meter, dari gambar'], color: '#e8750a', on: true },
+    { id: 'site', n: ['Site', 'Tapak'], c: ['Paving and grass', 'Paving dan rumput'], color: '#8aa874', on: true }
+  ];
+  var layerGroups = {};
+  LAYERS.forEach(function (l) {
+    var g = new T.Group(); g.visible = l.on; root.add(g);
+    layerGroups[l.id] = g;
+  });
+  function layerName(id) { for (var i = 0; i < LAYERS.length; i++) { if (LAYERS[i].id === id) { return LAYERS[i].n[li()]; } } return id; }
+  var pickables = [];
+  /* the roof frame and the concrete columns are many small boxes; they are collected here and merged into one mesh each to cut draw calls */
+  var bins = { steel: [], cols: [] };
+  function add(mesh, lyr, title, spec) {
+    if (mesh.material === M.steel) { bins.steel.push(mesh); return mesh; }
+    if (lyr === 'cols' && mesh.material === M.blue) { bins.cols.push(mesh); return mesh; }
+    return reg(mesh, lyr, title, spec);
+  }
+  function reg(mesh, lyr, title, spec) {
+    mesh.userData.info = { title: title, spec: spec, layer: lyr };
+    mesh.castShadow = true; mesh.receiveShadow = true;
+    layerGroups[lyr].add(mesh);
+    pickables.push(mesh);
+    return mesh;
+  }
+  function mergeMeshes(list, m) {
+    var pos = [], nor = [], uv = [], idx = [], off = 0;
+    list.forEach(function (me) {
+      me.updateMatrix();
+      var g = me.geometry.clone(); g.applyMatrix4(me.matrix);
+      var p = g.attributes.position.array, n = g.attributes.normal.array, u = g.attributes.uv.array, ix = g.index.array, i;
+      for (i = 0; i < p.length; i++) { pos.push(p[i]); nor.push(n[i]); }
+      for (i = 0; i < u.length; i++) { uv.push(u[i]); }
+      for (i = 0; i < ix.length; i++) { idx.push(ix[i] + off); }
+      off += p.length / 3;
+      g.dispose();
+    });
+    var G = new T.BufferGeometry();
+    G.setAttribute('position', new T.Float32BufferAttribute(pos, 3));
+    G.setAttribute('normal', new T.Float32BufferAttribute(nor, 3));
+    G.setAttribute('uv', new T.Float32BufferAttribute(uv, 2));
+    G.setIndex(idx);
+    return new T.Mesh(G, m);
+  }
+  function addTo(group, mesh, lyr, title, spec) {
+    mesh.userData.info = { title: title, spec: spec, layer: lyr };
+    mesh.castShadow = true; mesh.receiveShadow = true;
+    group.add(mesh);
+    pickables.push(mesh);
+    return mesh;
+  }
+
+  /* ---------- geometry helpers (plan coords in, world out) ---------- */
+  function B(x0, x1, y0, y1, z0, z1, m) {
+    var mesh = new T.Mesh(new T.BoxGeometry(x1 - x0, z1 - z0, y1 - y0), m);
+    mesh.position.set((x0 + x1) / 2 - CX, (z0 + z1) / 2, (y0 + y1) / 2 - CZ);
+    return mesh;
+  }
+  function poly(pts, xa, xb, m) {
+    var sh = new T.Shape();
+    pts.forEach(function (p, i) { var u = p[0] - CZ, v = p[1]; if (i === 0) { sh.moveTo(u, v); } else { sh.lineTo(u, v); } });
+    var mesh = new T.Mesh(new T.ExtrudeGeometry(sh, { depth: xb - xa, bevelEnabled: false }), m);
+    mesh.rotation.y = -Math.PI / 2;
+    mesh.position.x = xb - CX;
+    return mesh;
+  }
+  /* a thin board lying along the line (y0,z0)-(y1,z1), pushed off the line along its up-normal */
+  function slab(x0, x1, y0, z0, y1, z1, thk, off, m) {
+    var dy = y1 - y0, dz = z1 - z0, len = Math.sqrt(dy * dy + dz * dz);
+    var mesh = new T.Mesh(new T.BoxGeometry(x1 - x0, thk, len), m);
+    mesh.rotation.x = -Math.atan2(dz, dy);
+    var ny = dy / len, nz = -dz / len;
+    mesh.position.set((x0 + x1) / 2 - CX, (z0 + z1) / 2 + ny * off, (y0 + y1) / 2 + nz * off - CZ);
+    return mesh;
+  }
+
+  /* ---------- floor ---------- */
+  var floorMesh = B(0, L, 0, D, 0, FLOOR, [M.slab, M.slab, new T.MeshStandardMaterial({ map: tileTex, roughness: 0.45, clippingPlanes: clipPlanes, clipShadows: true }), M.slab, M.slab, M.slab]);
+  clipMats.push(floorMesh.material[2]);
+  add(floorMesh, 'floor',
+    P('Floor, keramik 40 × 40', 'Lantai, keramik 40 × 40'),
+    P('Finished level +0.20 m. Build-up: tanah urug 13 cm, cor beton 7 cm, ceramic tile 40 × 40 cm.', 'Elevasi akhir +0.20 m. Lapisan: tanah urug 13 cm, cor beton 7 cm, keramik 40 × 40 cm.'));
+
+  /* ---------- columns and ringbalk ---------- */
+  var colT = P('Column K 15/15', 'Kolom K 15/15');
+  var colS = P('Concrete 15 × 15 cm. 2Ø10 top, 2Ø10 bottom, stirrups Ø8-20. Top at +3.15 m (back, middle) or +2.90 m (front).', 'Beton 15 × 15 cm. 2Ø10 atas, 2Ø10 bawah, sengkang Ø8-20. Puncak di +3.15 m (belakang, tengah) atau +2.90 m (depan).');
+  X_COLS.forEach(function (x) {
+    [0, 3].forEach(function (y) { add(B(x - 0.08, x + 0.08, y - 0.08, y + 0.08, 0, H_BACK, M.blue), 'cols', colT, colS); });
+  });
+  FRONT_COLS.forEach(function (x) { add(B(x - 0.08, x + 0.08, D - 0.08, D + 0.08, 0, H_FRONT, M.blue), 'cols', colT, colS); });
+  var rbS = P('Ironwood (ulin) 9 × 9 cm along the column tops. Spliced with bolts (sambungan baut, 2 pcs).', 'Kayu ulin 9 × 9 cm sepanjang puncak kolom. Disambung dengan baut (sambungan baut, 2 bh).');
+  add(B(-0.05, L + 0.05, -0.045, 0.045, H_BACK, H_BACK + 0.09, M.beam), 'cols', P('Ringbalk ulin 9/9, back line', 'Ringbalk ulin 9/9, as belakang'), rbS);
+  add(B(-0.05, L + 0.05, 3 - 0.045, 3 + 0.045, H_BACK, H_BACK + 0.09, M.beam), 'cols', P('Ringbalk ulin 9/9, middle line', 'Ringbalk ulin 9/9, as tengah'), rbS);
+  add(B(-0.05, L + 0.05, D - 0.045, D + 0.045, H_FRONT, H_FRONT + 0.09, M.beam), 'cols', P('Ringbalk ulin 9/9, front line', 'Ringbalk ulin 9/9, as depan'), rbS);
+
+  /* ---------- walls ---------- */
+  var wnE = 'Hatched on the plan. Material is not stated in the drawings; modelled as a solid wall up to the ringbalk.';
+  var wnI = 'Diarsir pada denah. Bahan tidak disebutkan dalam gambar; dimodelkan sebagai dinding pasangan sampai ringbalk.';
+  add(poly([[0, FLOOR], [D, FLOOR], [D, 2.84], [3, 3.16], [1.5, 4.54], [0, 3.16]], -0.075, 0.075, M.wall), 'walls',
+    P('Left end wall', 'Dinding ujung kiri'),
+    P('Full 6.00 m depth, rising to the gable. ' + wnE, 'Kedalaman penuh 6.00 m, naik sampai pelana. ' + wnI));
+  add(poly([[0, FLOOR], [3, FLOOR], [3, 3.16], [1.5, 4.54], [0, 3.16]], L - 0.075, L + 0.075, M.wall), 'walls',
+    P('Right end wall', 'Dinding ujung kanan'),
+    P('Back 3.00 m only, the front half is open. ' + wnE, 'Hanya 3.00 m bagian belakang, setengah depan terbuka. ' + wnI));
+  add(poly([[0, FLOOR], [D, FLOOR], [D, H_FRONT], [3, H_BACK], [0, H_BACK]], 6.35 - 0.075, 6.35 + 0.075, M.wall), 'walls',
+    P('Wall between the two bays', 'Dinding antar bentang'),
+    P('Along grid line 6.35 m, full depth. ' + wnE, 'Pada as 6.35 m, kedalaman penuh. ' + wnI));
+  [2.45, 4.40].forEach(function (x) {
+    var xs = x.toFixed(2);
+    add(B(x - 0.075, x + 0.075, 0, 3, FLOOR, H_BACK, M.wall), 'walls', P('Partition', 'Sekat'),
+      P('Back 3.00 m of the walled bay, at x = ' + xs + ' m. ' + wnE, 'Bagian belakang 3.00 m dari bentang berdinding, pada x = ' + xs + ' m. ' + wnI));
+  });
+  add(B(0, L, -0.05, 0.05, FLOOR, H_BACK, M.wall), 'walls', P('Back wall', 'Dinding belakang'),
+    P('Full 17.35 m length, between the columns of the back line. Thin double line on the plan, modelled 10 cm.', 'Panjang penuh 17.35 m, di antara kolom as belakang. Garis ganda tipis pada denah, dimodelkan 10 cm.'));
+  [8.35, 10.35].forEach(function (x) {
+    var xs = x.toFixed(2);
+    add(B(x - 0.05, x + 0.05, 0, 1.7, FLOOR, H_BACK, M.wall), 'walls', P('Short partition', 'Sekat pendek'),
+      P('1.70 m deep, off the back wall at x = ' + xs + ' m.', 'Sedalam 1.70 m dari dinding belakang, pada x = ' + xs + ' m.'));
+  });
+  var roomE = 'Room 2.00 × 1.70 m off the back wall, between x = 12.35 and 14.35 m.';
+  var roomI = 'Ruang 2.00 × 1.70 m dari dinding belakang, antara x = 12.35 dan 14.35 m.';
+  var rwT = P('Small room wall', 'Dinding ruang kecil'), rwS = P(roomE, roomI);
+  add(B(12.30, 12.40, 0, 1.75, FLOOR, H_BACK, M.wall), 'walls', rwT, rwS);
+  add(B(14.30, 14.40, 0, 1.75, FLOOR, H_BACK, M.wall), 'walls', rwT, rwS);
+  add(B(12.30, 13.33, 1.65, 1.75, FLOOR, H_BACK, M.wall), 'walls', P('Small room front wall', 'Dinding depan ruang kecil'),
+    P(roomE + ' The door P1 is in the right part.', roomI + ' Pintu P1 berada di bagian kanan.'));
+  add(B(13.33, 14.34, 1.65, 1.75, FLOOR + 2.58, H_BACK, M.wall), 'walls', P('Wall above door', 'Dinding di atas pintu'), rwS);
+
+  /* ---------- foundation and sloof ---------- */
+  var ftS = P('Pondasi batu belah camp. 1:4. 0.30 m wide at the top, 0.40 m at the base, 0.50 m deep.', 'Pondasi batu belah camp. 1:4. Lebar atas 0.30 m, dasar 0.40 m, dalam 0.50 m.');
+  add(B(-0.175, L + 0.175, 3 - 0.175, 3 + 0.175, -0.5, 0, M.stone), 'found', P('Stone footing, line y = 3.00', 'Pondasi batu belah, as y = 3.00'), ftS);
+  add(B(-0.175, L + 0.175, D - 0.175, D + 0.175, -0.5, 0, M.stone), 'found', P('Stone footing, front line', 'Pondasi batu belah, as depan'), ftS);
+  [0, 6.35, L].forEach(function (x) { add(B(x - 0.175, x + 0.175, 3, D, -0.5, 0, M.stone), 'found', P('Stone footing, cross line', 'Pondasi batu belah, as melintang'), ftS); });
+  var sfS = P('Concrete 15 × 20 cm. 2Ø10 top, 2Ø10 bottom, stirrups Ø8-20. Drawn for the front 3.00 m only.', 'Beton 15 × 20 cm. 2Ø10 atas, 2Ø10 bawah, sengkang Ø8-20. Hanya digambar untuk 3.00 m bagian depan.');
+  add(B(-0.075, L + 0.075, D - 0.075, D + 0.075, 0, FLOOR, M.blue), 'found', P('Sloof 15/20, front line', 'Sloof 15/20, as depan'), sfS);
+  [0, 6.35, L].forEach(function (x) { add(B(x - 0.075, x + 0.075, 3, D, 0, FLOOR, M.blue), 'found', P('Sloof 15/20, cross line', 'Sloof 15/20, as melintang'), sfS); });
+
+  /* ---------- roof frame ---------- */
+  var czS = P('Light steel Zincalum C-75. One truss on every column line (9 in total).', 'Baja ringan Zincalum C-75. Satu kuda-kuda pada setiap as kolom (total 9).');
+  var tBot = P('Truss bottom chord, Zincalum C-75', 'Batang bawah kuda-kuda, Zincalum C-75');
+  var tRaf = P('Rafter, Zincalum C-75', 'Kaso, Zincalum C-75');
+  var tLean = P('Lean-to rafter, Zincalum C-75', 'Kaso atap miring, Zincalum C-75');
+  var tKing = P('King post, Zincalum C-75', 'Tiang tengah, Zincalum C-75');
+  var tWeb = P('Truss web, Zincalum C-75', 'Batang diagonal kuda-kuda, Zincalum C-75');
+  X_COLS.forEach(function (x) {
+    var a = x - 0.025, b = x + 0.025;
+    add(slab(a, b, 0, 3.28, 3, 3.28, 0.075, 0, M.steel), 'frame', tBot, czS);
+    add(slab(a, b, -OV, NORTH_END, 1.5, RIDGE, 0.075, -0.1125, M.steel), 'frame', tRaf, czS);
+    add(slab(a, b, 1.5, RIDGE, 3, EAVE, 0.075, -0.1125, M.steel), 'frame', tRaf, czS);
+    add(slab(a, b, 3, EAVE, D + OV, LEAN_END, 0.075, -0.1125, M.steel), 'frame', tLean, czS);
+    add(B(x - 0.025, x + 0.025, 1.46, 1.54, 3.28, RIDGE - 0.14, M.steel), 'frame', tKing, czS);
+    add(slab(a, b, 0.2, 3.28, 1.5, 4.3, 0.05, 0, M.steel), 'frame', tWeb, czS);
+    add(slab(a, b, 2.8, 3.28, 1.5, 4.3, 0.05, 0, M.steel), 'frame', tWeb, czS);
+  });
+  var rengT = 'Reng 32.45';
+  var rengS = P('Roof battens, spaced about 0.75 m in this model (not dimensioned on the sheets), carrying the roof sheets.', 'Reng atap, berjarak sekitar 0.75 m pada model ini (tidak berdimensi pada gambar), menopang lembar atap.');
+  function reng(y0, z0, y1, z1) {
+    var len = Math.sqrt((y1 - y0) * (y1 - y0) + (z1 - z0) * (z1 - z0));
+    var n = Math.ceil(len / 0.75);
+    for (var i = 0; i <= n; i++) {
+      var u = i / n, py = y0 + (y1 - y0) * u, pz = z0 + (z1 - z0) * u;
+      var qy = py + (y1 - y0) / len * 0.035, qz = pz + (z1 - z0) / len * 0.035;
+      add(slab(-OV, L + OV, py, pz, qy, qz, 0.045, -0.0525, M.steel), 'frame', rengT, rengS);
+    }
+  }
+  reng(-OV, NORTH_END, 1.5, RIDGE);
+  reng(1.5, RIDGE, 3, EAVE);
+  reng(3, EAVE, D + OV, LEAN_END);
+  var postT = P('Ridge cap support', 'Penyangga jambul bubungan');
+  var postS = P('Short steel posts lifting the ridge cap 0.50 m above the ridge.', 'Tiang baja pendek yang mengangkat jambul bubungan 0.50 m di atas bubungan.');
+  for (var cx = 2.7; cx < 14.8; cx += 2.0) {
+    add(B(cx - 0.025, cx + 0.025, 1.475, 1.525, RIDGE - 0.1, RIDGE + 0.44, M.steel), 'frame', postT, postS);
+  }
+
+  /* ---------- roof covering ---------- */
+  var roofE = 'Seng soka (biru), blue roof sheets on reng 32.45 over Zincalum C-75 trusses.';
+  var roofI = 'Seng soka (biru) di atas reng 32.45 pada kuda-kuda Zincalum C-75.';
+  var roofMat = [M.roofSide, M.roofSide, M.roofTop, M.roofSide, M.roofSide, M.roofSide];
+  add(slab(-OV, L + OV, -OV, NORTH_END, 1.5, RIDGE, 0.03, -0.015, roofMat), 'roof', P('Roof, back slope', 'Atap, sisi belakang'),
+    P(roofE + ' Gable over the back 3.00 m, overhang about 0.65 m.', roofI + ' Pelana di atas 3.00 m bagian belakang, tritisan sekitar 0.65 m.'));
+  add(slab(-OV, L + OV, 1.5, RIDGE, 3, EAVE, 0.03, -0.015, roofMat), 'roof', P('Roof, gable front slope', 'Atap, sisi depan pelana'), P(roofE, roofI));
+  add(slab(-OV, L + OV, 3, EAVE, D + OV, LEAN_END, 0.03, -0.015, roofMat), 'roof', P('Roof, front lean-to', 'Atap, miring depan'),
+    P(roofE + ' Low slope over the front 3.00 m, overhang about 0.65 m.', roofI + ' Kemiringan rendah di atas 3.00 m bagian depan, tritisan sekitar 0.65 m.'));
+  var capMat = [M.roofSide, M.roofSide, M.capTop, M.roofSide, M.roofSide, M.roofSide];
+  var capT = P('Ridge cap', 'Jambul bubungan');
+  var capS = P('Raised ridge cap, 0.50 m above the ridge, about 12.1 m long.', 'Jambul bubungan, 0.50 m di atas bubungan, panjang sekitar 12.1 m.');
+  add(slab(2.64, 14.76, 0.75, 5.12, 1.5, 5.26, 0.03, -0.015, capMat), 'roof', capT, capS);
+  add(slab(2.64, 14.76, 1.5, 5.26, 2.25, 5.12, 0.03, -0.015, capMat), 'roof', capT, capS);
+  var fsS = P('White listplank along the roof edges.', 'Listplank putih di sepanjang tepi atap.');
+  add(B(-OV, L + OV, D + OV - 0.02, D + OV + 0.01, LEAN_END - 0.2, LEAN_END + 0.02, M.fascia), 'roof', P('Fascia, front', 'Listplank, depan'), fsS);
+  add(B(-OV, L + OV, -OV - 0.02, -OV + 0.01, NORTH_END - 0.2, NORTH_END + 0.02, M.fascia), 'roof', P('Fascia, back', 'Listplank, belakang'), fsS);
+  var bgT = P('Barge board', 'Listplank samping');
+  [-OV, L + OV].forEach(function (x) {
+    var a = x - 0.02, b = x + 0.01;
+    add(slab(a, b, -OV, NORTH_END, 1.5, RIDGE, 0.2, -0.09, M.fascia), 'roof', bgT, fsS);
+    add(slab(a, b, 1.5, RIDGE, 3, EAVE, 0.2, -0.09, M.fascia), 'roof', bgT, fsS);
+    add(slab(a, b, 3, EAVE, D + OV, LEAN_END, 0.2, -0.09, M.fascia), 'roof', bgT, fsS);
+  });
+
+  /* ---------- doors and gate ---------- */
+  var gateHalves = [];
+  var fgT = 'Folding gate FG';
+  var fgS = P('6.20 × 2.65 m folding gate across the front of the walled bay, painted blue. Two leaves that fold to the sides.', 'Folding gate 6.20 × 2.65 m di depan bentang berdinding, cat warna biru. Dua daun yang terlipat ke samping.');
+  function gateHalf(pivotX, sign) {
+    var g = new T.Group();
+    g.position.set(pivotX - CX, FLOOR, 5.97 - CZ);
+    var m = new T.Mesh(new T.BoxGeometry(3.1, 2.65, 0.05), [M.gateEdge, M.gateEdge, M.gateEdge, M.gateEdge, M.gate, M.gate]);
+    m.position.set(sign * 1.55, 1.325, 0);
+    addTo(g, m, 'doors', fgT, fgS);
+    layerGroups.doors.add(g);
+    gateHalves.push(g);
+  }
+  gateHalf(0.075, 1);
+  gateHalf(6.275, -1);
+  var DX0 = 13.37, DX1 = 14.30, DY = 1.70;
+  var kusT = P('Door frame P1', 'Kusen pintu P1'), kusS = P('Kusen ulin 4/9, ironwood door frame.', 'Kusen ulin 4/9.');
+  add(B(DX0 - 0.04, DX0, DY - 0.05, DY + 0.05, FLOOR, FLOOR + 2.58, M.wood), 'doors', kusT, kusS);
+  add(B(DX1, DX1 + 0.04, DY - 0.05, DY + 0.05, FLOOR, FLOOR + 2.58, M.wood), 'doors', kusT, kusS);
+  add(B(DX0 - 0.04, DX1 + 0.04, DY - 0.05, DY + 0.05, FLOOR + 2.54, FLOOR + 2.58, M.wood), 'doors', kusT, kusS);
+  add(B(DX0, DX1, DY - 0.04, DY + 0.04, FLOOR + 2.20, FLOOR + 2.24, M.wood), 'doors', kusT, kusS);
+  var glass = add(B(DX0, DX1, DY - 0.01, DY + 0.01, FLOOR + 2.24, FLOOR + 2.54, M.glass), 'doors', P('Glass above door P1', 'Kaca di atas pintu P1'), P('Clear glass, 5 mm, 0.30 m high.', 'Kaca bening 5 mm, tinggi 0.30 m.'));
+  glass.castShadow = false;
+  var doorPivot = new T.Group();
+  doorPivot.position.set(DX1 - CX, FLOOR, DY - CZ);
+  var leaf = new T.Mesh(new T.BoxGeometry(0.85, 2.0, 0.04), M.door);
+  leaf.position.set(-0.425, 1.0, 0);
+  addTo(doorPivot, leaf, 'doors', P('Door P1', 'Pintu P1'), P('Ulin door leaf 0.85 × 2.00 m, painted blue. Hinged on the right and swings into the room.', 'Daun pintu ulin 0.85 × 2.00 m, cat warna biru. Engsel di kanan, membuka ke dalam ruangan.'));
+  layerGroups.doors.add(doorPivot);
+
+  /* ---------- electrical ---------- */
+  var lampT = P('LED lamp 10 W with fitting', 'Lampu LED 10 W dengan fitting');
+  var lampS = P('9 lamps in total, positions from the electrical plan.', 'Total 9 lampu, posisi sesuai rencana elektrikal.');
+  var lamps = [[1.2, 1.47, 3.12], [3.46, 1.43, 3.12], [5.4, 1.47, 3.12], [3.14, 4.46, 3.0], [9.37, 2.29, 3.12], [10.35, 4.46, 3.0], [14.24, 4.46, 3.0], [15.82, 2.29, 3.12], [13.33, 0.78, 3.12]];
+  var lampLights = [], glowSprites = [];
+  lamps.forEach(function (p) {
+    var cyl = new T.Mesh(new T.CylinderGeometry(0.08, 0.08, 0.06, 16), M.lampBase);
+    cyl.position.set(p[0] - CX, p[2] - 0.03, p[1] - CZ);
+    add(cyl, 'elec', lampT, lampS);
+    var disc = new T.Mesh(new T.CylinderGeometry(0.13, 0.13, 0.025, 20), M.lampGlow);
+    disc.position.set(p[0] - CX, p[2] - 0.07, p[1] - CZ);
+    layerGroups.elec.add(disc);
+    var pl = new T.PointLight(0xffd9a0, 1.15, 9, 2);
+    pl.visible = false; /* a light that is not visible costs nothing in the shader */
+    pl.position.set(p[0] - CX, p[2] - 0.2, p[1] - CZ);
+    layerGroups.elec.add(pl);
+    lampLights.push(pl);
+    var gs = new T.Sprite(new T.SpriteMaterial({ map: glowTex, transparent: true, blending: T.AdditiveBlending, depthWrite: false, opacity: 0.4 }));
+    gs.scale.set(1.5, 1.5, 1);
+    gs.position.set(p[0] - CX, p[2] - 0.12, p[1] - CZ);
+    gs.visible = false;
+    layerGroups.elec.add(gs);
+    glowSprites.push(gs);
+  });
+  var swT = P('Saklar ganda', 'Saklar ganda'), skT = P('Stop kontak', 'Stop kontak'), ssT = P('Saklar tunggal', 'Saklar tunggal');
+  add(B(0.075, 0.1, 4.65, 4.79, 1.28, 1.42, M.sw), 'elec', swT, P('Double switch, on the left end wall inside the walled bay.', 'Saklar ganda, di dinding ujung kiri dalam bentang berdinding.'));
+  add(B(0.075, 0.1, 5.08, 5.22, 0.43, 0.57, M.sock), 'elec', skT, P('Power outlet, on the left end wall inside the walled bay.', 'Stop kontak, di dinding ujung kiri dalam bentang berdinding.'));
+  add(B(12.48, 12.62, 1.75, 1.78, 0.43, 0.57, M.sock), 'elec', skT, P('Power outlet, beside the small room door.', 'Stop kontak, di samping pintu ruang kecil.'));
+  add(B(12.78, 12.92, 1.75, 1.78, 1.28, 1.42, M.sw), 'elec', swT, P('Double switch, beside the small room door.', 'Saklar ganda, di samping pintu ruang kecil.'));
+  add(B(13.08, 13.22, 1.75, 1.78, 1.28, 1.42, M.sw), 'elec', ssT, P('Single switch, beside the small room door.', 'Saklar tunggal, di samping pintu ruang kecil.'));
+
+  /* merged parts: one mesh each, picked as a group */
+  var frameMesh = reg(mergeMeshes(bins.steel, M.steel), 'frame', P('Roof frame, Zincalum C-75', 'Rangka atap, Zincalum C-75'),
+    P('Light steel Zincalum C-75: one truss on every column line (9 in total), with reng 32.45 battens about 0.75 m apart in this model (spacing not dimensioned on the sheets).', 'Baja ringan Zincalum C-75: satu kuda-kuda pada setiap as kolom (total 9), dengan reng 32.45 berjarak sekitar 0.75 m pada model ini (jarak tidak berdimensi pada gambar).'));
+  var colMesh = reg(mergeMeshes(bins.cols, M.blue), 'cols', colT, colS);
+  frameMesh.userData.noBox = true; colMesh.userData.noBox = true;
+
+  /* ---------- site ---------- */
+  var grassMat = new T.MeshStandardMaterial({ color: 0x9db88a, roughness: 1 });
+  var grass = new T.Mesh(new T.CircleGeometry(95, 48), grassMat);
+  grass.rotation.x = -Math.PI / 2; grass.receiveShadow = true;
+  layerGroups.site.add(grass);
+  var pavMat = new T.MeshStandardMaterial({ map: pavTex, roughness: 0.95, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 });
+  var pav = new T.Mesh(new T.PlaneGeometry(26, 14), pavMat);
+  pav.rotation.x = -Math.PI / 2; pav.position.set(0, 0.01, 0.5); pav.receiveShadow = true;
+  layerGroups.site.add(pav);
+
+  /* ---------- dimensions ---------- */
+  var env = { time: 'day', shadows: true, lamps: false, az: 0 };
+  var TIMES = {
+    day: { sky: 0xdbe4f0, hs: 0xdbe4f0, gnd: 0x8a9a7a, hemi: 0.8, sun: 0.6, sunCol: 0xffffff, pos: [11, 20, 15], grass: 0x9db88a, pav: 0xffffff, dark: false, glow: 0.3 },
+    dusk: { sky: 0x4d4f7e, hs: 0x8a7aa8, gnd: 0x4a4650, hemi: 0.55, sun: 0.7, sunCol: 0xffa768, pos: [-20, 6, 11], grass: 0x6f7c66, pav: 0xc4b9cc, dark: true, glow: 0.8 },
+    night: { sky: 0x080d1a, hs: 0x2a3b66, gnd: 0x18202c, hemi: 0.45, sun: 0.16, sunCol: 0x9db4ff, pos: [-9, 18, -8], grass: 0x25362d, pav: 0x6d7690, dark: true, glow: 1 }
+  };
+  var labels = [];
+  function label(text, wx, wy, wz, w) {
+    var c = document.createElement('canvas'); c.width = 320; c.height = 96;
+    var tex = new T.CanvasTexture(c);
+    var sp = new T.Sprite(new T.SpriteMaterial({ map: tex, transparent: true, depthTest: false }));
+    sp.scale.set(w, w * 96 / 320, 1);
+    sp.position.set(wx, wy, wz); sp.renderOrder = 10;
+    layerGroups.dims.add(sp);
+    labels.push({ c: c, tex: tex, text: text });
+  }
+  function paintLabels() {
+    var dk = TIMES[env.time].dark;
+    labels.forEach(function (l) {
+      var g = l.c.getContext('2d');
+      g.clearRect(0, 0, 320, 96);
+      g.fillStyle = dk ? 'rgba(11,17,31,.88)' : 'rgba(255,255,255,.92)';
+      g.fillRect(4, 14, 312, 68);
+      g.strokeStyle = dk ? '#6f95ff' : '#1f56e0'; g.lineWidth = 3;
+      g.strokeRect(4, 14, 312, 68);
+      g.fillStyle = dk ? '#e7ecf7' : '#111a2e';
+      g.font = '500 34px "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace';
+      g.textAlign = 'center'; g.textBaseline = 'middle';
+      g.fillText(typeof l.text === 'string' ? l.text : tr(l.text[0]), 160, 49);
+      l.tex.needsUpdate = true;
+    });
+  }
+  var dimPts = [];
+  function seg(ax, ay, az, bx, by, bz) { dimPts.push(ax, ay, az, bx, by, bz); }
+  var dimMat = new T.LineBasicMaterial({ color: 0x16224a, depthTest: false });
+  function runX(x0, x1, y, text) {
+    var z = y - CZ, a = x0 - CX, b = x1 - CX;
+    seg(a, 0.02, z, b, 0.02, z); seg(a, 0.02, z - 0.2, a, 0.02, z + 0.2); seg(b, 0.02, z - 0.2, b, 0.02, z + 0.2);
+    label(text, (a + b) / 2, 0.5, z, 2.0);
+  }
+  function runY(y0, y1, x, text) {
+    var wx = x - CX, a = y0 - CZ, b = y1 - CZ;
+    seg(wx, 0.02, a, wx, 0.02, b); seg(wx - 0.2, 0.02, a, wx + 0.2, 0.02, a); seg(wx - 0.2, 0.02, b, wx + 0.2, 0.02, b);
+    label(text, wx, 0.5, (a + b) / 2, 2.0);
+  }
+  runX(0, 6.35, 7.7, '6.35'); runX(6.35, L, 7.7, '11.00'); runX(0, L, 8.8, '17.35');
+  [0, 6.35, L].forEach(function (x) { seg(x - CX, 0.02, 6.4 - CZ, x - CX, 0.02, 9.0 - CZ); });
+  runY(0, 3, -1.4, '3.00'); runY(3, D, -1.4, '3.00'); runY(0, D, -2.4, '6.00');
+  [0, 3, D].forEach(function (y) { seg(-0.3 - CX, 0.02, y - CZ, -2.6 - CX, 0.02, y - CZ); });
+  var hx = L + 1.15 - CX, hz = 1.5 - CZ;
+  seg(hx, 0, hz, hx, RIDGE, hz);
+  [0, FLOOR, H_BACK, RIDGE].forEach(function (z) { seg(hx - 0.2, z, hz, hx + 0.2, z, hz); });
+  label(['dim.floor'], hx + 1.75, FLOOR + 0.05, hz, 2.9);
+  label(['dim.beam'], hx + 1.75, H_BACK, hz, 2.9);
+  label(['dim.ridge'], hx + 1.75, RIDGE, hz, 2.9);
+  var dimGeo = new T.BufferGeometry();
+  dimGeo.setAttribute('position', new T.Float32BufferAttribute(dimPts, 3));
+  var dimLines = new T.LineSegments(dimGeo, dimMat);
+  dimLines.renderOrder = 9;
+  layerGroups.dims.add(dimLines);
+
+  /* ---------- environment: time of day, shadows, lamps ---------- */
+  var dirty = true;
+  function refreshMats() {
+    scene.traverse(function (o) {
+      if (o.material) { [].concat(o.material).forEach(function (m) { m.needsUpdate = true; }); }
+    });
+  }
+  function applyEnv() {
+    var e = TIMES[env.time];
+    renderer.setClearColor(e.sky, 1);
+    scene.fog = new T.Fog(e.sky, 70, 190);
+    hemi.color.set(e.hs); hemi.groundColor.set(e.gnd); hemi.intensity = e.hemi;
+    sun.color.set(e.sunCol); sun.intensity = e.sun;
+    var a = env.az * Math.PI / 180, p = e.pos;
+    sun.position.set(p[0] * Math.cos(a) + p[2] * Math.sin(a), p[1], -p[0] * Math.sin(a) + p[2] * Math.cos(a));
+    grassMat.color.set(e.grass);
+    pavMat.color.set(e.pav);
+    dimMat.color.set(e.dark ? 0xc9d6ff : 0x16224a);
+    var lit = env.lamps && !perf.light;
+    if (lampLights[0].visible !== lit) { lampLights.forEach(function (l) { l.visible = lit; }); refreshMats(); }
+    M.lampGlow.color.set(env.lamps ? 0xfff3c4 : 0xaeb4bd);
+    glowSprites.forEach(function (s) { s.visible = env.lamps; s.material.opacity = e.glow; });
+    paintLabels();
+    shadowDirty = true;
+    dirty = true;
+  }
+  function applyShadows() {
+    var on = env.shadows && !perf.light;
+    renderer.shadowMap.enabled = on;
+    sun.castShadow = on;
+    refreshMats();
+    shadowDirty = true;
+    dirty = true;
+  }
+
+  /* ---------- cut plane ---------- */
+  var plane = new T.Plane(new T.Vector3(-1, 0, 0), 0);
+  var cutMat = new T.MeshBasicMaterial({ color: 0xe8750a, transparent: true, opacity: 0.14, side: T.DoubleSide, depthWrite: false });
+  var cutMesh = new T.Mesh(new T.PlaneGeometry(1, 1), cutMat);
+  cutMesh.visible = false; cutMesh.renderOrder = 8;
+  scene.add(cutMesh);
+  var sec = { mode: 'off', t: 0.5, flip: false };
+  function updateSection() {
+    var out = document.getElementById('sec-out');
+    clipPlanes.length = 0;
+    if (sec.mode === 'off') {
+      cutMesh.visible = false;
+      out.textContent = tr('sec.out.off');
+    } else if (sec.mode === 'x') {
+      var cxw = sec.t * L - CX;
+      plane.normal.set(sec.flip ? 1 : -1, 0, 0); plane.constant = sec.flip ? -cxw : cxw;
+      clipPlanes.push(plane);
+      cutMesh.rotation.set(0, Math.PI / 2, 0); cutMesh.scale.set(8, 6.6, 1); cutMesh.position.set(cxw, 2.6, 0);
+      cutMesh.visible = true;
+      out.textContent = tr('sec.out.x').replace('{v}', (sec.t * L).toFixed(2));
+    } else {
+      var czw = sec.t * D - CZ;
+      plane.normal.set(0, 0, sec.flip ? 1 : -1); plane.constant = sec.flip ? -czw : czw;
+      clipPlanes.push(plane);
+      cutMesh.rotation.set(0, 0, 0); cutMesh.scale.set(L + 3, 6.6, 1); cutMesh.position.set(0, 2.6, czw);
+      cutMesh.visible = true;
+      out.textContent = tr('sec.out.y').replace('{v}', (sec.t * D).toFixed(2));
+    }
+    clipMats.forEach(function (m) { m.needsUpdate = true; });
+    shadowDirty = true;
+    dirty = true;
+  }
+
+  /* ---------- camera and controls ---------- */
+  var view = { theta: 0.65, phi: 1.05, r: 31, tx: 2.2, ty: 1.2, tz: 0.5 };
+  var PRESETS = {
+    iso: { theta: 0.65, phi: 1.05, r: 31, tx: 2.2, ty: 1.2, tz: 0.5, k: ['Iso', 'Iso'], c: ['overview', 'ringkasan'] },
+    front: { theta: 0, phi: 1.5, r: 28, tx: 0, ty: 1.8, tz: 0, k: ['Front', 'Depan'], c: ['front elevation', 'tampak depan'] },
+    back: { theta: Math.PI, phi: 1.5, r: 28, tx: 0, ty: 1.8, tz: 0, k: ['Back', 'Belakang'], c: ['back elevation', 'tampak belakang'] },
+    west: { theta: -Math.PI / 2, phi: 1.5, r: 26, tx: 0, ty: 1.8, tz: 0, k: ['Left', 'Kiri'], c: ['left side', 'samping kiri'] },
+    east: { theta: Math.PI / 2, phi: 1.5, r: 26, tx: 0, ty: 1.8, tz: 0, k: ['Right', 'Kanan'], c: ['right side', 'samping kanan'] },
+    plan: { theta: 0, phi: 0.03, r: 25, tx: 0, ty: 0, tz: 0, k: ['Plan', 'Denah'], c: ['floor plan', 'denah'] },
+    inside: { theta: 1.15, phi: 1.48, r: 4.2, tx: 0.5, ty: 1.5, tz: 0.6, k: ['Inside', 'Dalam'], c: ['eye level', 'setinggi mata'], fixed: true }
+  };
+  var aspect = 1.6;
+  function fitR(p) { return p.fixed ? p.r : p.r * Math.max(1, 1.5 / aspect); }
+  function applyCam() {
+    var sp = Math.sin(view.phi), cp = Math.cos(view.phi);
+    cam.position.set(view.tx + view.r * sp * Math.sin(view.theta), view.ty + view.r * cp, view.tz + view.r * sp * Math.cos(view.theta));
+    cam.lookAt(view.tx, view.ty, view.tz);
+  }
+  var tween = null, spin = false, dragging = false;
+  function goTo(key) {
+    var p = PRESETS[key];
+    var to = { theta: p.theta, phi: p.phi, r: fitR(p), tx: p.tx, ty: p.ty, tz: p.tz };
+    var d = to.theta - view.theta;
+    while (d > Math.PI) { d -= 2 * Math.PI; }
+    while (d < -Math.PI) { d += 2 * Math.PI; }
+    to.theta = view.theta + d;
+    tween = { from: { theta: view.theta, phi: view.phi, r: view.r, tx: view.tx, ty: view.ty, tz: view.tz }, to: to, t0: performance.now(), dur: 750 };
+    dirty = true;
+  }
+  function ease(k) { return k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2; }
+  function clampView() {
+    view.phi = Math.max(0.02, Math.min(1.56, view.phi));
+    view.r = Math.max(2.5, Math.min(70, view.r));
+    view.tx = Math.max(-16, Math.min(16, view.tx));
+    view.ty = Math.max(0, Math.min(7, view.ty));
+    view.tz = Math.max(-12, Math.min(12, view.tz));
+  }
+  function pan(dx, dy) {
+    cam.updateMatrixWorld();
+    var e = cam.matrixWorld.elements, s = view.r * 0.0016;
+    view.tx += (-e[0] * dx + e[4] * dy) * s;
+    view.ty += (-e[1] * dx + e[5] * dy) * s;
+    view.tz += (-e[2] * dx + e[6] * dy) * s;
+    clampView(); dirty = true;
+  }
+  var ptrs = {}, lastDist = 0, lastMid = null, downAt = 0, travel = 0;
+  var hint = document.getElementById('hint');
+  function count() { return Object.keys(ptrs).length; }
+  dom.addEventListener('pointerdown', function (e) {
+    try { dom.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+    ptrs[e.pointerId] = { x: e.clientX, y: e.clientY };
+    tween = null; dragging = true; hint.classList.add('gone');
+    if (count() === 1) { downAt = performance.now(); travel = 0; }
+    if (count() === 2) { var k = Object.keys(ptrs); var a = ptrs[k[0]], b = ptrs[k[1]]; lastDist = Math.hypot(a.x - b.x, a.y - b.y); lastMid = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }; }
+  });
+  dom.addEventListener('pointermove', function (e) {
+    var p = ptrs[e.pointerId]; if (!p) { return; }
+    var dx = e.clientX - p.x, dy = e.clientY - p.y;
+    p.x = e.clientX; p.y = e.clientY;
+    if (count() === 1) {
+      travel += Math.abs(dx) + Math.abs(dy);
+      if (e.shiftKey || (e.buttons & 6)) { pan(dx, dy); }
+      else { view.theta -= dx * 0.0065; view.phi -= dy * 0.0065; clampView(); dirty = true; }
+    } else if (count() === 2) {
+      var k = Object.keys(ptrs); var a = ptrs[k[0]], b = ptrs[k[1]];
+      var dist = Math.hypot(a.x - b.x, a.y - b.y), mid = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+      if (lastDist > 0) { view.r *= lastDist / dist; clampView(); }
+      if (lastMid) { pan(mid.x - lastMid.x, mid.y - lastMid.y); }
+      lastDist = dist; lastMid = mid; travel += 99; dirty = true;
+    }
+  });
+  function release(e) {
+    var had = ptrs[e.pointerId]; delete ptrs[e.pointerId];
+    if (count() < 2) { lastDist = 0; lastMid = null; }
+    if (count() === 0) {
+      dragging = false;
+      if (had && e.type === 'pointerup' && travel < 6 && performance.now() - downAt < 600) { pickAt(e.clientX, e.clientY); }
+    }
+  }
+  dom.addEventListener('pointerup', release);
+  dom.addEventListener('pointercancel', release);
+  dom.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+  dom.addEventListener('wheel', function (e) {
+    e.preventDefault(); tween = null; hint.classList.add('gone');
+    view.r *= Math.exp(e.deltaY * 0.0012); clampView(); dirty = true;
+  }, { passive: false });
+
+  /* ---------- picking ---------- */
+  var ray = new T.Raycaster();
+  var selBox = null, selMesh = null, xray = false;
+  var card = document.getElementById('card');
+  function showCard() {
+    if (!selMesh) { return; }
+    var inf = selMesh.userData.info;
+    document.getElementById('card-title').textContent = pt(inf.title);
+    document.getElementById('card-spec').textContent = pt(inf.spec);
+    document.getElementById('card-tag').textContent = layerName(inf.layer);
+    card.hidden = false;
+  }
+  function clearSel() {
+    if (selBox) { scene.remove(selBox); selBox.geometry.dispose(); selBox = null; }
+    selMesh = null; card.hidden = true; dirty = true;
+  }
+  function pickAt(cx, cy) {
+    var r = dom.getBoundingClientRect();
+    var ndc = new T.Vector2(((cx - r.left) / r.width) * 2 - 1, -((cy - r.top) / r.height) * 2 + 1);
+    cam.updateMatrixWorld();
+    ray.setFromCamera(ndc, cam);
+    var hits = ray.intersectObjects(pickables, false), hit = null;
+    for (var i = 0; i < hits.length; i++) {
+      var h = hits[i], info = h.object.userData.info;
+      if (!layerGroups[info.layer].visible) { continue; }
+      if (h.object.material === M.wall && xray) { continue; }
+      if (clipPlanes.length && plane.distanceToPoint(h.point) < 0) { continue; }
+      hit = h; break;
+    }
+    if (!hit) { clearSel(); return; }
+    selMesh = hit.object;
+    if (selBox) { scene.remove(selBox); selBox.geometry.dispose(); selBox = null; }
+    if (!selMesh.userData.noBox) {
+      selBox = new T.BoxHelper(selMesh, 0xe8750a);
+      selBox.material.depthTest = false; selBox.renderOrder = 11;
+      scene.add(selBox);
+    }
+    showCard(); dirty = true;
+  }
+  document.getElementById('card-x').addEventListener('click', clearSel);
+
+  /* ---------- doors and gate animation ---------- */
+  var doorT = 0, doorGoal = 0;
+  function applyDoors() {
+    leaf.parent.rotation.y = -Math.PI / 2 * doorT;
+    gateHalves.forEach(function (g) { g.scale.x = 1 - 0.88 * doorT; });
+    shadowDirty = true;
+  }
+
+  /* ---------- UI wiring ---------- */
+  var tabs = ['view', 'layers', 'section', 'light', 'specs'];
+  tabs.forEach(function (id) {
+    document.getElementById('tab-' + id).addEventListener('click', function () {
+      tabs.forEach(function (o) {
+        var on = o === id;
+        document.getElementById('tab-' + o).setAttribute('aria-selected', on ? 'true' : 'false');
+        document.getElementById('p-' + o).hidden = !on;
+      });
+    });
+  });
+
+  var viewsEl = document.getElementById('views');
+  function buildViews() {
+    viewsEl.innerHTML = '';
+    Object.keys(PRESETS).forEach(function (key) {
+      var p = PRESETS[key], b = document.createElement('button');
+      b.className = 'btn'; b.type = 'button'; b.id = 'vw-' + key;
+      b.innerHTML = '<span>' + p.k[li()] + '</span><i>' + p.c[li()] + '</i>';
+      b.addEventListener('click', function () { goTo(key); });
+      viewsEl.appendChild(b);
+    });
+  }
+
+  var layersEl = document.getElementById('layers');
+  function buildLayers() {
+    layersEl.innerHTML = '';
+    LAYERS.forEach(function (l) {
+      var row = document.createElement('label'); row.className = 'row';
+      row.innerHTML = '<input type="checkbox" id="ly-' + l.id + '"' + (layerGroups[l.id].visible ? ' checked' : '') + '><span class="sw" style="background:' + l.color + '"></span><span class="nm">' + l.n[li()] + '<small>' + l.c[li()] + '</small></span>';
+      layersEl.appendChild(row);
+      row.querySelector('input').addEventListener('change', function (e) { setLayer(l.id, e.target.checked); });
+    });
+  }
+  function setLayer(id, on) {
+    layerGroups[id].visible = on;
+    var el = document.getElementById('ly-' + id); if (el) { el.checked = on; }
+    if (selMesh && !layerGroups[selMesh.userData.info.layer].visible) { clearSel(); }
+    if (id === 'found' || id === 'site') { updateGround(); }
+    shadowDirty = true;
+    dirty = true;
+  }
+  function updateGround() {
+    var glassy = layerGroups.found.visible && layerGroups.site.visible;
+    [grassMat, pavMat].forEach(function (m) { m.transparent = glassy; m.opacity = glassy ? 0.28 : 1; m.depthWrite = !glassy; m.needsUpdate = true; });
+  }
+  document.getElementById('ly-all').addEventListener('click', function () {
+    LAYERS.forEach(function (l) { setLayer(l.id, l.on); });
+    updateGround();
+  });
+  document.getElementById('ly-skel').addEventListener('click', function () {
+    var show = { frame: 1, cols: 1, floor: 1, found: 1 };
+    LAYERS.forEach(function (l) { setLayer(l.id, !!show[l.id] || l.id === 'dims'); });
+    updateGround();
+  });
+
+  document.getElementById('opt-doors').addEventListener('change', function (e) { doorGoal = e.target.checked ? 1 : 0; dirty = true; });
+  document.getElementById('opt-xray').addEventListener('change', function (e) {
+    xray = e.target.checked;
+    M.wall.transparent = xray; M.wall.opacity = xray ? 0.22 : 1; M.wall.depthWrite = !xray; M.wall.needsUpdate = true;
+    shadowDirty = true;
+    dirty = true;
+  });
+  var perfEl = document.getElementById('opt-perf');
+  perfEl.checked = perf.light;
+  perfEl.addEventListener('change', function (e) {
+    perf.light = e.target.checked;
+    try { localStorage.setItem('tps3r-perf', perf.light ? '1' : '0'); } catch (err) { /* storage unavailable */ }
+    applyPixel(); resize();
+    applyShadows(); applyEnv();
+  });
+  document.getElementById('opt-spin').addEventListener('change', function (e) { spin = e.target.checked; tween = null; dirty = true; });
+
+  var modeBtns = document.querySelectorAll('#sec-modes .btn');
+  var slider = document.getElementById('sec-pos'), flipBtn = document.getElementById('sec-flip');
+  Array.prototype.forEach.call(modeBtns, function (b) {
+    b.addEventListener('click', function () {
+      sec.mode = b.getAttribute('data-mode');
+      Array.prototype.forEach.call(modeBtns, function (o) { o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
+      slider.disabled = flipBtn.disabled = sec.mode === 'off';
+      updateSection();
+    });
+  });
+  slider.addEventListener('input', function () { sec.t = slider.value / 1000; updateSection(); });
+  flipBtn.addEventListener('click', function () { sec.flip = !sec.flip; updateSection(); });
+
+  /* light tab */
+  var timeBtns = document.querySelectorAll('#time-modes .btn');
+  Array.prototype.forEach.call(timeBtns, function (b) {
+    b.addEventListener('click', function () {
+      env.time = b.getAttribute('data-time');
+      Array.prototype.forEach.call(timeBtns, function (o) { o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
+      applyEnv();
+    });
+  });
+  document.getElementById('opt-shadow').addEventListener('change', function (e) { env.shadows = e.target.checked; applyShadows(); });
+  document.getElementById('opt-lamps').addEventListener('change', function (e) { env.lamps = e.target.checked; applyEnv(); });
+  var azEl = document.getElementById('sun-az');
+  function updateAzOut() { document.getElementById('sun-out').textContent = tr('lt.dir.out').replace('{v}', env.az); }
+  azEl.addEventListener('input', function () { env.az = parseInt(azEl.value, 10) || 0; updateAzOut(); applyEnv(); });
+
+  /* specs tab */
+  var SPECS = [
+    ['Footprint', 'Luas', '17.35 × 6.00 m, 104.1 m²', '17.35 × 6.00 m, 104.1 m²'],
+    ['Bays', 'Bentang', '6.35 m walled bay with folding gate, 11.00 m bay open to the front', 'Bentang 6.35 m berdinding dengan folding gate, bentang 11.00 m terbuka di depan'],
+    ['Floor', 'Lantai', '+0.20 m. Tanah urug 13 cm, cor beton 7 cm, keramik 40×40', '+0.20 m. Tanah urug 13 cm, cor beton 7 cm, keramik 40×40'],
+    ['Beam level', 'Tinggi balok', '+3.15 m back and middle lines, +2.90 m front line', '+3.15 m as belakang dan tengah, +2.90 m as depan'],
+    ['Ridge', 'Bubungan', '+4.72 m (5.22 m from footing base), cap 0.50 m above', '+4.72 m (5.22 m dari dasar pondasi), jambul 0.50 m di atasnya'],
+    ['Roof', 'Atap', 'Gable over the back 3.00 m, lean-to over the front 3.00 m. Zincalum C-75, reng 32.45, seng soka biru', 'Pelana di atas 3.00 m belakang, atap miring di atas 3.00 m depan. Zincalum C-75, reng 32.45, seng soka biru'],
+    ['Footing', 'Pondasi', 'Batu belah camp. 1:4, 0.30 top, 0.40 base, 0.50 deep', 'Batu belah camp. 1:4, atas 0.30, dasar 0.40, dalam 0.50'],
+    ['Sloof / Column', 'Sloof / Kolom', 'Concrete 15/20 and 15/15, Ø10 bars, Ø8-20 stirrups', 'Beton 15/20 dan 15/15, tulangan Ø10, sengkang Ø8-20'],
+    ['Ringbalk', 'Ringbalk', 'Ulin 9/9, bolted splices', 'Ulin 9/9, sambungan baut'],
+    ['Openings', 'Bukaan', 'P1 ulin door 0.85 × 2.00 with 5 mm glass above. FG folding gate 6.20 × 2.65', 'Pintu ulin P1 0.85 × 2.00 dengan kaca 5 mm di atasnya. Folding gate FG 6.20 × 2.65'],
+    ['Power', 'Listrik', '9 LED 10 W lamps, 2 stop kontak, 2 saklar ganda, 1 saklar tunggal', '9 lampu LED 10 W, 2 stop kontak, 2 saklar ganda, 1 saklar tunggal']
+  ];
+  var NOTES = [
+    ['Wall material and thickness. Modelled as 15 cm solid walls up to the ringbalk.', 'Bahan dan tebal dinding. Dimodelkan sebagai dinding pasangan 15 cm sampai ringbalk.'],
+    ['Footings and sloof are drawn for the front 3.00 m only.', 'Pondasi dan sloof hanya digambar untuk 3.00 m bagian depan.'],
+    ['The ringbalk plan shows the front line only. Ringbalks on the back and middle lines are assumed.', 'Rencana ringbalk hanya menunjukkan as depan. Ringbalk as belakang dan tengah diasumsikan.'],
+    ['The use of the small room is not stated. Roof batten spacing is not dimensioned.', 'Fungsi ruang kecil tidak disebutkan. Jarak reng atap tidak berdimensi.'],
+    ['Wiring routes are not modelled, only lamps, switches and outlets.', 'Jalur kabel tidak dimodelkan, hanya lampu, saklar dan stop kontak.'],
+    ['North appears only on the satellite layout sheet (north up, long side roughly north to south). The model is not rotated to a compass heading.', 'Arah utara hanya tampak pada lembar layout satelit (utara di atas, sisi panjang kira-kira utara ke selatan). Model tidak diputar mengikuti arah mata angin.']
+  ];
+  function buildSpecs() {
+    var h = '<h3 class="sub">' + tr('sp.key') + '</h3><dl class="dl">';
+    SPECS.forEach(function (r) { h += '<dt>' + r[li()] + '</dt><dd>' + r[2 + li()] + '</dd>'; });
+    h += '<dt>' + (lang === 'id' ? 'Lokasi' : 'Site') + '</dt><dd><a href="https://www.google.com/maps?q=-2.419815,115.263280" target="_blank" rel="noopener">-2.419815, 115.263280</a></dd></dl>';
+    h += '<h3 class="sub">' + tr('sp.nofix') + '</h3><ul class="notes">';
+    NOTES.forEach(function (n) { h += '<li>' + n[li()] + '</li>'; });
+    h += '</ul><h3 class="sub">' + tr('sp.sheets') + '</h3><p class="out">Layout, Tampak 3D, Denah, Tampak depan / belakang / samping, Potongan A-A, Rencana pondasi, sloof, kolom, ringbalk, atap, pintu, keramik, elektrikal, Detail pondasi dan penulangan, Detail pintu.</p>';
+    document.getElementById('specs-body').innerHTML = h;
+  }
+
+  /* language switch */
+  function setLang(next) {
+    lang = next;
+    try { localStorage.setItem('tps3r-lang', lang); } catch (err) { /* storage unavailable */ }
+    document.getElementById('lg-id').setAttribute('aria-pressed', lang === 'id' ? 'true' : 'false');
+    document.getElementById('lg-en').setAttribute('aria-pressed', lang === 'en' ? 'true' : 'false');
+    applyStatic();
+    dom.setAttribute('aria-label', tr('canvas.aria'));
+    buildViews(); buildLayers(); buildSpecs();
+    updateSection(); updateAzOut();
+    paintLabels(); showCard();
+    dirty = true;
+  }
+  document.getElementById('lg-id').addEventListener('click', function () { setLang('id'); });
+  document.getElementById('lg-en').addEventListener('click', function () { setLang('en'); });
+
+  /* ---------- size and loop ---------- */
+  function resize() {
+    var w = stage.clientWidth, h = stage.clientHeight;
+    if (!w || !h) { return; }
+    renderer.setSize(w, h, false);
+    aspect = w / h; cam.aspect = aspect; cam.updateProjectionMatrix();
+    dirty = true;
+  }
+  if (window.ResizeObserver) { new ResizeObserver(resize).observe(stage); }
+  window.addEventListener('resize', resize);
+
+  function frame(now) {
+    requestAnimationFrame(frame);
+    var changed = false;
+    if (tween) {
+      var k = Math.min(1, (now - tween.t0) / tween.dur), e = ease(k), f = tween.from, t = tween.to;
+      view.theta = f.theta + (t.theta - f.theta) * e; view.phi = f.phi + (t.phi - f.phi) * e;
+      view.r = f.r + (t.r - f.r) * e; view.tx = f.tx + (t.tx - f.tx) * e;
+      view.ty = f.ty + (t.ty - f.ty) * e; view.tz = f.tz + (t.tz - f.tz) * e;
+      if (k >= 1) { tween = null; }
+      changed = true;
+    }
+    if (spin && !dragging && !tween) { view.theta += 0.004; changed = true; }
+    if (Math.abs(doorGoal - doorT) > 0.0004) {
+      doorT += (doorGoal - doorT) * 0.1;
+      if (Math.abs(doorGoal - doorT) <= 0.0004) { doorT = doorGoal; }
+      applyDoors(); changed = true;
+      if (selBox && selMesh && selMesh.userData.info.layer === 'doors') { selBox.update(); }
+    }
+    if (dirty || changed) {
+      applyCam();
+      if (shadowDirty) { renderer.shadowMap.needsUpdate = true; shadowDirty = false; }
+      renderer.render(scene, cam); dirty = false;
+    }
+  }
+
+  document.getElementById('lg-id').setAttribute('aria-pressed', lang === 'id' ? 'true' : 'false');
+  document.getElementById('lg-en').setAttribute('aria-pressed', lang === 'en' ? 'true' : 'false');
+  dom.setAttribute('aria-label', tr('canvas.aria'));
+  buildViews(); buildLayers(); buildSpecs();
+  updateSection(); updateAzOut();
+  applyEnv();
+  applyShadows();
+  updateGround();
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(function () { paintLabels(); dirty = true; }); }
+  resize();
+  var p0 = PRESETS.iso; view.theta = p0.theta; view.phi = p0.phi; view.r = fitR(p0);
+  view.tx = p0.tx; view.ty = p0.ty; view.tz = p0.tz;
+  applyCam();
+  requestAnimationFrame(frame);
+})();
+</script>
+
+</body></html>
