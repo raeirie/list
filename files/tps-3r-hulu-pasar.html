@@ -318,9 +318,9 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
     return t;
   }
   var tileTex = canvasTex(64, 64, function (g, w, h) {
-    g.fillStyle = '#dfe1de'; g.fillRect(0, 0, w, h);
+    g.fillStyle = '#cfe0d6'; g.fillRect(0, 0, w, h);
     g.fillStyle = 'rgba(255,255,255,.35)'; g.fillRect(3, 3, w - 6, h / 2);
-    g.strokeStyle = '#a9aeaa'; g.lineWidth = 3; g.strokeRect(0, 0, w, h);
+    g.strokeStyle = '#9fb1a7'; g.lineWidth = 3; g.strokeRect(0, 0, w, h);
   });
   tileTex.repeat.set(L / 0.4, D / 0.4);
   function corrTex(lenX) {
@@ -345,11 +345,11 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
     for (var i = 0; i < 10; i++) { g.fillRect(0, Math.round(i * h / 10), w, 2); }
   });
   var pavTex = canvasTex(128, 128, function (g, w, h) {
-    g.fillStyle = '#8f97a4'; g.fillRect(0, 0, w, h);
+    g.fillStyle = '#8b9a8c'; g.fillRect(0, 0, w, h);
     for (var r = 0; r < 4; r++) {
       for (var c = 0; c < 2; c++) {
         var v = 170 + Math.floor(Math.random() * 28);
-        g.fillStyle = 'rgb(' + v + ',' + (v + 4) + ',' + (v + 12) + ')';
+        g.fillStyle = 'rgb(' + v + ',' + (v + 6) + ',' + (v + 4) + ')';
         g.fillRect(c * 64 + (r % 2) * 32 + 1, r * 32 + 1, 62, 30);
       }
     }
@@ -363,19 +363,19 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
   glowTex.wrapS = glowTex.wrapT = T.ClampToEdgeWrapping;
 
   var M = {
-    blue: mat(0x2563e8),
-    beam: mat(0x3b78f2),
-    wall: mat(0xcfdbe6),
+    blue: mat(0x1f9bf0),
+    beam: mat(0x39a8f6),
+    wall: mat(0xc0e8f4),
     steel: mat(0xaab4c0, { metalness: 0.4, roughness: 0.5 }),
     fascia: mat(0xf3f6f9),
     stone: mat(0x7d8288),
     slab: mat(0xb9bdc2),
-    roofSide: mat(0x16379f),
-    roofTop: mat(0x2c5be0, { map: corrTex(L + 2 * OV) }),
-    capTop: mat(0x2c5be0, { map: corrTex(12.12) }),
-    gate: mat(0x1b3fd0, { map: slatTex }),
-    gateEdge: mat(0x14308f),
-    door: mat(0x1a3fd4, { map: boardTex }),
+    roofSide: mat(0x1a5aa0),
+    roofTop: mat(0x2a76c8, { map: corrTex(L + 2 * OV) }),
+    capTop: mat(0x2a76c8, { map: corrTex(12.12) }),
+    gate: mat(0x0a14e0, { map: slatTex }),
+    gateEdge: mat(0x0810a8),
+    door: mat(0x0a10c0, { map: boardTex }),
     wood: mat(0x6b4426),
     glass: mat(0xbfe3ff, { transparent: true, opacity: 0.35, depthWrite: false }),
     lampBase: mat(0x99a2ad),
@@ -386,16 +386,16 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
 
   /* ---------- registry: layers and pickable parts ---------- */
   var LAYERS = [
-    { id: 'roof', n: ['Roof covering', 'Penutup atap'], c: ['Blue seng soka sheets', 'Seng soka biru'], color: '#2c5be0', on: true },
+    { id: 'roof', n: ['Roof covering', 'Penutup atap'], c: ['Blue seng soka sheets', 'Seng soka biru'], color: '#2a76c8', on: true },
     { id: 'frame', n: ['Roof frame', 'Rangka atap'], c: ['Zincalum C-75, reng 32.45', 'Zincalum C-75, reng 32.45'], color: '#aab4c0', on: true },
-    { id: 'walls', n: ['Walls', 'Dinding'], c: ['Assumed solid, 15 cm', 'Asumsi pasangan, 15 cm'], color: '#cfdbe6', on: true },
-    { id: 'cols', n: ['Columns and ringbalk', 'Kolom dan ringbalk'], c: ['K 15/15, ulin 9/9', 'K 15/15, ulin 9/9'], color: '#2563e8', on: true },
-    { id: 'floor', n: ['Floor', 'Lantai'], c: ['Keramik 40 × 40', 'Keramik 40 × 40'], color: '#dfe1de', on: true },
+    { id: 'walls', n: ['Walls', 'Dinding'], c: ['Assumed solid, 15 cm', 'Asumsi pasangan, 15 cm'], color: '#c0e8f4', on: true },
+    { id: 'cols', n: ['Columns and ringbalk', 'Kolom dan ringbalk'], c: ['K 15/15, ulin 9/9', 'K 15/15, ulin 9/9'], color: '#1f9bf0', on: true },
+    { id: 'floor', n: ['Floor', 'Lantai'], c: ['Keramik 40 × 40', 'Keramik 40 × 40'], color: '#cfe0d6', on: true },
     { id: 'found', n: ['Foundation and sloof', 'Pondasi dan sloof'], c: ['Batu belah 1:4, sloof 15/20', 'Batu belah 1:4, sloof 15/20'], color: '#7d8288', on: false },
-    { id: 'doors', n: ['Doors and gate', 'Pintu dan gerbang'], c: ['P1 and folding gate FG', 'P1 dan folding gate FG'], color: '#1b3fd0', on: true },
+    { id: 'doors', n: ['Doors and gate', 'Pintu dan gerbang'], c: ['P1 and folding gate FG', 'P1 dan folding gate FG'], color: '#0a14e0', on: true },
     { id: 'elec', n: ['Electrical', 'Elektrikal'], c: ['9 lamps, 5 switches and outlets', '9 lampu, 5 saklar dan stop kontak'], color: '#ffcc3d', on: true },
     { id: 'dims', n: ['Dimensions', 'Dimensi'], c: ['Metres, from the drawings', 'Meter, dari gambar'], color: '#e8750a', on: true },
-    { id: 'site', n: ['Site', 'Tapak'], c: ['Paving and grass', 'Paving dan rumput'], color: '#8aa874', on: true }
+    { id: 'site', n: ['Site', 'Tapak'], c: ['Paving and grass', 'Paving dan rumput'], color: '#5d9a3c', on: true }
   ];
   var layerGroups = {};
   LAYERS.forEach(function (l) {
@@ -660,7 +660,7 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
   frameMesh.userData.noBox = true; colMesh.userData.noBox = true;
 
   /* ---------- site ---------- */
-  var grassMat = new T.MeshStandardMaterial({ color: 0x9db88a, roughness: 1 });
+  var grassMat = new T.MeshStandardMaterial({ color: 0x5d9a3c, roughness: 1 });
   var grass = new T.Mesh(new T.CircleGeometry(95, 48), grassMat);
   grass.rotation.x = -Math.PI / 2; grass.receiveShadow = true;
   layerGroups.site.add(grass);
@@ -672,9 +672,9 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
   /* ---------- dimensions ---------- */
   var env = { time: 'day', shadows: true, lamps: false, az: 0 };
   var TIMES = {
-    day: { sky: 0xdbe4f0, hs: 0xdbe4f0, gnd: 0x8a9a7a, hemi: 0.8, sun: 0.6, sunCol: 0xffffff, pos: [11, 20, 15], grass: 0x9db88a, pav: 0xffffff, dark: false, glow: 0.3 },
-    dusk: { sky: 0x4d4f7e, hs: 0x8a7aa8, gnd: 0x4a4650, hemi: 0.55, sun: 0.7, sunCol: 0xffa768, pos: [-20, 6, 11], grass: 0x6f7c66, pav: 0xc4b9cc, dark: true, glow: 0.8 },
-    night: { sky: 0x080d1a, hs: 0x2a3b66, gnd: 0x18202c, hemi: 0.45, sun: 0.16, sunCol: 0x9db4ff, pos: [-9, 18, -8], grass: 0x25362d, pav: 0x6d7690, dark: true, glow: 1 }
+    day: { sky: 0xdbe4f0, hs: 0xdbe4f0, gnd: 0x8a9a7a, hemi: 0.8, sun: 0.6, sunCol: 0xffffff, pos: [11, 20, 15], grass: 0x5d9a3c, pav: 0xffffff, dark: false, glow: 0.3 },
+    dusk: { sky: 0x4d4f7e, hs: 0x8a7aa8, gnd: 0x4a4650, hemi: 0.55, sun: 0.7, sunCol: 0xffa768, pos: [-20, 6, 11], grass: 0x476b3a, pav: 0xc4b9cc, dark: true, glow: 0.8 },
+    night: { sky: 0x080d1a, hs: 0x2a3b66, gnd: 0x18202c, hemi: 0.45, sun: 0.16, sunCol: 0x9db4ff, pos: [-9, 18, -8], grass: 0x1f3526, pav: 0x6d7690, dark: true, glow: 1 }
   };
   var labels = [];
   function label(text, wx, wy, wz, w) {
