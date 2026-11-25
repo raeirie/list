@@ -10,6 +10,13 @@
       "kind": "page",
       "target": "files/tps-3r-hulu-pasar.html",
       "note": "Interactive 3D model: sections, layers, day/dusk/night light."
+    },
+    {
+      "title": "Vibe — curated vibe-coding resources",
+      "slug": "vibe",
+      "kind": "link",
+      "target": "https://vibe.jauhari.web.id/",
+      "note": "33 curated resources for vibe coding — components, motion, design references; tag filters and sorting."
     }
   ]
 }
